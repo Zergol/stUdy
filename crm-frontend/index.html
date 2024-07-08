@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRM skb.</title>
+    <link rel="stylesheet" href="./css/normalize.css">
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/media.css">
+    <script defer src="./js/main.js"></script>
+</head>
+
+<body class="body">
+
+  <!-- Хидер с поиском-->
+  <header class="header">
+    <div class="header__container flex">
+      <div class="header__logo">
+        <a href="#">
+          <img class="logo header__logo-img" src="./img/logo-skb-1024.png" alt="Логотип skb.">
+        </a>
+      </div>
+      <div class="header__input">
+        <input class="header__input-text" type="text" id="header__input-text" name="search" placeholder="Введите запрос">
+        <ul class="header__input-search">
+          <li class="input__search-item not-found">
+            Ничего не найдено
+          </li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="main__container">
+      <h1 class="visually-hiddens">CRM skb. Clients</h1>
+      <h2 class="main__title">Клиенты</h2>
+
+      <!-- Таблица с клиентами-->
+      <div class="table__area">
+        <table class="main__table">
+          <thead class="main__table-thead">
+            <th data-column="id" class="table__thead-td thead-td-active"><span class="thead-id active-up">ID</span></th>
+            <th data-column="fio" class="table__thead-td thead-td-active"><span class="thead-fio">Фамилия Имя Отчество</span></th>
+            <th data-column="createdAt" class="table__thead-td thead-td-active"><span class="thead-create">Дата и время создания</span></th>
+            <th data-column="updatedAt" class="table__thead-td thead-td-active"><span class="thead-change">Последние изменения</span></th>
+            <th data-column="contacts" class="table__thead-td"><span class="thead-contacts">Контакты</span></th>
+            <th data-column="actions" class="table__thead-td"><span class="thead-actions">Действия</span></th>
+          </thead>
+          <tbody class="main__table-tbody" id="clients-List">
+            <div class="tbody-background flex">
+              <div class="spinner-border" role="status">
+                <span class="visually-hidden">Загрузка...</span>
+              </div>
+            </div>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Кнопка-триггер модального окна "Добавить клиента"-->
+      <div class="main__btn-container flex">
+        <button type="button" class="main__btn-add btn-cursor" data-bs-toggle="modal" data-bs-target="#addModal">Добавить клиента</button>
+      </div>
+
+      <!-- Модальное окно "Добавить клиента"-->
+      <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+        <div class="modal-dialog add">
+          <div class="modal-content modal__add-content">
+            <div class="modal__add-header flex">
+              <h3 class="modal__add-title" id="addModalLabel">Новый клиент</h3>
+              <button type="button" class="modal__add-btn btn-close"></button>
+            </div>
+            <form class="modal__form">
+              <div class="modal__add-body">
+                <div class="form-floating">
+                  <input type="text" class="modal__add-input input form-control" placeholder="Фамилия" id="input-surname-1" required>
+                  <label class="modal__add-label label" for="input-surname-1">Фамилия<span style="color: #9873FF">*</span></label>
+                </div>
+                <div class="form-floating">
+                  <input type="text" class="modal__add-input input form-control" placeholder="Имя" id="input-name-1" required>
+                  <label class="modal__add-label label" for="input-name-1">Имя<span style="color: #9873FF">*</span></label>
+                </div>
+                <div class="form-floating">
+                  <input type="text" class="modal__add-input input form-control" placeholder="Отчество" id="input-lastName-1">
+                  <label class="modal__add-label label" for="input-lastName-1">Отчество</label>
+                </div>
+              </div>
+              <div class="modal__add-main-btn flex">
+                <div class="modal__add-form"></div>
+                <button type="button" class="footer__btn-add">Добавить контакт</button>
+              </div>
+              <div class="modal__add-footer flex">
+                <button type="submit" class="footer__btn-save footer__btn-save-add">Сохранить</button>
+                <button data-bs-dismiss="modal" class="footer__btn-cancel footer__btn-cancel-add">Отмена</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Модальное окно "Изменить данные клиента"-->
+      <div class="modal fade" id="changeModal" tabindex="-1" aria-labelledby="changeModalLabel" aria-hidden="true">
+        <div class="modal-dialog change">
+          <div class="modal-content modal__change-content">
+            <div class="modal__change-header flex">
+              <h3 class="modal__change-title" id="changeModalLabel">
+                Изменить данные
+                <span class="modal__change-id" id="modalChangeID">ID: 123455</span>
+              </h3>
+              <button type="button" class="modal__change-btn btn-close"></button>
+            </div>
+            <form class="modal__form">
+              <div class="modal__change-body">
+                <div class="form-floating">
+                  <input type="text" class="modal__change-input input form-control" placeholder="Фамилия" id="input-surname-2" required>
+                  <label class="modal__change-label label" for="input-surname-2">Фамилия<span style="color: #9873FF">*</span></label>
+                </div>
+                <div class="form-floating">
+                  <input type="text" class="modal__change-input input form-control" placeholder="Имя" id="input-name-2" required>
+                  <label class="modal__change-label label" for="input-name-2">Имя<span style="color: #9873FF">*</span></label>
+                </div>
+                <div class="form-floating">
+                  <input type="text" class="modal__change-input input form-control" placeholder="Отчество" id="input-lastName-2">
+                  <label class="modal__change-label label" for="input-lastName-2">Отчество</label>
+                </div>
+              </div>
+              <div class="modal__change-main-btn flex">
+                <div class="modal__change-form"></div>
+                <button type="button" class="footer__btn-change">Добавить контакт</button>
+              </div>
+              <div class="modal__change-footer flex">
+                <button type="submit" class="footer__btn-save footer__btn-save-change">
+                  <span class="spinner-border spinner-change" role="status" aria-hidden="true"></span>
+                  Сохранить
+                </button>
+                <button class="footer__btn-cancel footer__btn-cancel-change">Удалить клиента</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Модально окно "Удалить клиента"-->
+      <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content modal__delete-content">
+            <div class="modal__delete-header flex">
+              <h3 class="modal__delete-title" id="deleteModalLabel">Удалить клиента</h3>
+              <button class="modal__delete-btn btn-close"></button>
+            </div>
+            <div class="modal__delete-body flex">
+              <p class="modal__delete-question">Вы действительно хотите удалить данного клиента?</p>
+              <button type="submit" class="modal__delete-second-btn">Удалить</button>
+              <button class="modal__delete-cancel">Отмена</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@popperjs/core@2"></script>
+  <script src="https://unpkg.com/tippy.js@6"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+</body>
+</html>
