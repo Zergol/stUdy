@@ -510,7 +510,17 @@ img {
 .input-error,
 .input-error:focus,
 .input-error:active {
-  border-bottom: 0.5px solid var(--red);
+  /* border-bottom: 0.5px solid var(--red); */
+  border-bottom: 0.5px solid inherit;
+}
+
+.error-label {
+  display: inline-block;
+  width: inherit;
+  height: inherit;
+  margin-left: 65px;
+  font-size: 10px;
+  color: var(--red) !important;
 }
 
 .input:focus {
