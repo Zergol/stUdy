@@ -195,12 +195,9 @@
       const spinner = document.querySelector('.spinner-border');
 
       // 10.07.2024 - внёс
-      if (getListOfClients(SERVER_URL)) {
+      if (clientsList) {
         spinner.style = 'display: none';
       }
-
-      // 09.07.2024 - скрыл
-      // spinner.style = 'display: none';
 
       // создаем строку с данными клиента
       const tbodyTr = document.createElement('tr');
@@ -356,7 +353,6 @@
                 const clientName = document.getElementById('input-name-2');
                 const clientLastName = document.getElementById('input-lastName-2');
 
-                // 11.07.2024
                 function removeError (input) {
                   const parent = input.parentNode
 
@@ -377,34 +373,26 @@
                   parent.append(errorLabel)
                 }
 
-                // скрыл 11.07.2024
-                // clientSurname.addEventListener('input', () => clientSurname.classList.remove('input-error'));
-                // clientName.addEventListener('input', () => clientName.classList.remove('input-error'));
-                // clientLastName.addEventListener('input', () => clientLastName.classList.remove('input-error'));
-
                 let isChecked = false;
                 const allInputs = document.getElementsByClassName('modal__change-input');
 
                 for (const input of allInputs) {
                   removeError(input)
                   if(input.value.trim() == '') {
-                    createError(input, 'Поле не заполнено!')
+                    createError(input)
                   }
                 }
 
                 if (clientSurname.value.trim() == '' || clientSurname.value.trim().replace(regExp, '') != '') {
                   createError(document.getElementById('input-surname-2'), 'Введите фамилию клиента')
-                  // clientSurname.classList.add('input-error');
                   isChecked = true;
                 }
                 if (clientName.value.trim() == '' || clientName.value.trim().replace(regExp, '') != '') {
                   createError(document.getElementById('input-name-2'), 'Введите имя клиента')
-                  // clientName.classList.add('input-error');
                   isChecked = true;
                 }
-                if (clientLastName.value.trim().replace(regExp, '') != '') {
+                if (clientLastName.value.trim() == '' || clientLastName.value.trim().replace(regExp, '') != '') {
                   createError(document.getElementById('input-lastName-2'), 'Введите отчество клиента')
-                  // clientLastName.classList.add('input-error');
                   isChecked = true;
                 }
                 if (isChecked) return;
@@ -664,7 +652,6 @@
       addActionsToModalWindow(i);
     }
 
-    //
     const clientsList = await getListOfClients(SERVER_URL);
     setTimeout(drawingTableOfClients(clientsList), 1500);
 
@@ -677,11 +664,7 @@
 
     // "закрыть модальное окно - кнопка-крест"
     const btnClose = document.querySelector('.modal__add-btn');
-    btnClose.addEventListener('click', () => {
-      clearModal(1);
-      addActionsToModalWindow(4);
-      modalAdd.hide();
-    });
+    btnClose.addEventListener('click', () => modalAdd.hide());
 
     // "Отменить" - кнопка
     const btnCancelAdd = document.querySelector('.footer__btn-cancel-add');
@@ -700,7 +683,6 @@
       const clientName = document.getElementById('input-name-1');
       const clientLastName = document.getElementById('input-lastName-1');
 
-      // 11.07.2024
       function removeError (input) {
         const parent = input.parentNode
 
@@ -721,11 +703,6 @@
         parent.append(errorLabel)
       }
 
-      // скрыл 11.07.2024
-      // clientSurname.addEventListener('input', () => clientSurname.classList.remove('input-error'));
-      // clientName.addEventListener('input', () => clientName.classList.remove('input-error'));
-      // clientLastName.addEventListener('input', () => clientLastName.classList.remove('input-error'));
-
       let isChecked = false;
       const allInputs = document.getElementsByClassName('modal__add-input');
 
@@ -738,17 +715,14 @@
 
       if (clientSurname.value.trim() == '' || clientSurname.value.trim().replace(regExp, '') != '') {
         createError(document.getElementById('input-surname-1'), 'Введите фамилию клиента')
-        // clientSurname.classList.add('input-error');
         isChecked = true;
       }
       if (clientName.value.trim() == '' || clientName.value.trim().replace(regExp, '') != '') {
         createError(document.getElementById('input-name-1'), 'Введите имя клиента')
-        // clientName.classList.add('input-error');
         isChecked = true;
       }
-      if (clientLastName.value.trim().replace(regExp, '') != '') {
-        createError(document.getElementById('input-lastName-2'), 'Введите отчество клиента')
-        // clientLastName.classList.add('input-error');
+      if (clientLastName.value.trim() == '' || clientLastName.value.trim().replace(regExp, '') != '') {
+        createError(document.getElementById('input-lastName-1'), 'Введите отчество клиента')
         isChecked = true;
       }
       if (isChecked) return;

@@ -203,7 +203,7 @@ img {
 /* main */
 .main__container {
   /* max-width: 1024px; */
-  padding-top: 35px;
+  padding-top: 43px;
   padding-right: 20px;
   padding-left: 20px;
 }
@@ -251,7 +251,7 @@ img {
   position: absolute;
   justify-content: center;
   align-items: center;
-  top: 205px;
+  top: 212px;
   left: 20px;
   width: 96%;
   height: 300px;
@@ -352,7 +352,7 @@ img {
 
 .tbody-id {
   padding-left: 20px;
-  padding-right: 40px;
+  padding-right: 20px;
 }
 
 .td-text {
