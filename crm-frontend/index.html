@@ -50,14 +50,14 @@
             <th data-column="contacts" class="table__thead-td"><span class="thead-contacts">Контакты</span></th>
             <th data-column="actions" class="table__thead-td"><span class="thead-actions">Действия</span></th>
           </thead>
-          <tbody class="main__table-tbody" id="clients-List">
-            <div class="tbody-background flex">
-              <div class="spinner-border" role="status">
-                <span class="visually-hidden">Загрузка...</span>
-              </div>
-            </div>
+          <tbody class="main__table-tbody" id="clientList">
           </tbody>
         </table>
+        <div class="tbody-background flex">
+          <div id="spinner" class="spinner-border" role="status">
+            <span class="visually-hidden">Загрузка...</span>
+          </div>
+        </div>
       </div>
 
       <!-- Кнопка-триггер модального окна "Добавить клиента"-->
@@ -161,6 +161,7 @@
       </div>
 
     </div>
+    <div id="logMessages"></div>
   </main>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/@popperjs/core@2"></script>
