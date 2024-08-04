@@ -44,71 +44,6 @@
   let modalBtnSubmit;
 
 
-//TODO: cleanup the code
-
-// function sortTable (id, typeSort, clientsList) {
-  //   let sortArray = [];
-  //   let sortedClientList = [];
-  //   switch (id) {
-  //     case 0:
-  //       clientsList.forEach(client => sortArray.push(client.id));
-  //       typeSort ? sortArray.sort() : sortArray.sort((a, b) => b - a);
-  //       for (let i = 0; i < clientsList.length; ++i) {
-  //         clientsList.forEach(client => {
-  //           if (client.id === sortArray[i]) {
-  //             sortedClientList.push(client);
-  //           }
-  //         });
-  //       }
-  //       clearTable();
-  //       drawingTableOfClients(sortedClientList);
-  //       break;
-  //     case 1:
-  //       clientsList.forEach(client => sortArray.push(client.surname + client.name + client.lastName));
-  //       typeSort ? sortArray.sort() : sortArray.sort().reverse();
-  //       for (let i = 0; i < clientsList.length; ++i) {
-  //         clientsList.forEach(client => {
-  //           if (sortArray[i].includes(client.surname) && sortArray[i].includes(client.name) && sortArray[i].includes(client.lastName)) {
-  //             sortedClientList.push(client);
-  //           }
-  //         });
-  //       }
-  //       clearTable();
-  //       drawingTableOfClients(sortedClientList);
-  //       break;
-  //     case 2:
-  //       clientsList.forEach(client => sortArray.push(new Date(client.createdAt)));
-  //       typeSort ? sortArray.sort((a, b) => a.getTime() - b.getTime()) : sortArray.sort((a, b) => b.getTime() - a.getTime());
-  //       for (let i = 0; i < clientsList.length; ++i) {
-  //         clientsList.forEach(client => {
-  //           if (new Date(client.createdAt).getTime() === sortArray[i].getTime()) {
-  //             sortedClientList.push(client);
-  //           }
-  //         });
-  //       }
-  //       clearTable();
-  //       drawingTableOfClients(sortedClientList);
-  //       break;
-  //     case 3:
-  //       clientsList.forEach(client => sortArray.push(new Date(client.updatedAt)));
-  //       typeSort ? sortArray.sort((a, b) => a.getTime() - b.getTime()) : sortArray.sort((a, b) => b.getTime() - a.getTime());
-  //       for (let i = 0; i < clientsList.length; ++i) {
-  //         clientsList.forEach(client => {
-  //           if (new Date(client.updatedAt).getTime() === sortArray[i].getTime()) {
-  //             sortedClientList.push(client);
-  //           }
-  //         });
-  //       }
-  //       clearTable();
-  //       drawingTableOfClients(sortedClientList);
-  //       break;
-  //     default:
-  //       break;
-  //   }
-  // }
-
-
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // Functions
 //
@@ -169,9 +104,7 @@
     });
   }
 
-  function pollData() {
-    if (isLoading) return;
-    setIsLoading(true);
+  function getClients(callback, cleanupCallback) {
     fetch(SERVER_URL)
       .then((response) => {
         if (!response.ok) {
@@ -180,21 +113,31 @@
         return response.json();
       })
       .then((data) => {
-//FIXME: change to proper object comparision
-          if (clientList !== data) {
-            clientList = data;
-            console.log('Got new client list:', clientList);
-            clearTable();
-            drawTable();
-          } else {
-            console.log('Data is not changed...');
-          }
-          setIsLoading(false);
+          callback(data);
+          cleanupCallback();
         })
       .catch((error) => {
         logMessages.push(error);
-        setIsLoading(false);
+        cleanupCallback();
       });
+  }
+
+  function pollData() {
+    if (isLoading) return;
+    setIsLoading(true);
+    getClients((data) => {
+        //FIXME: change to proper object comparision
+        if (clientList !== data) {
+        clientList = data;
+        console.log('Got new client list:', clientList);
+        clearTable();
+        drawTable();
+      } else {
+        console.log('Data is not changed...');
+      }
+      },
+      () => setIsLoading(false)
+    )
   }
 
   // Clear Table
@@ -286,15 +229,6 @@
         });
         td.appendChild(btnDeleteClient);
 
-
-      // // Дополнения
-      // if (j < 5 && clientsList[i].contacts.length >= 5) {
-      //   svgContact.classList.add('top-pic');
-      // }
-      // if (j === 4 && !svgContact.classList.contains('last-pic')) {
-      //   svgContact.classList.add('last-pic');
-      // }
-
       clients.appendChild(tr);
     }
   }
@@ -349,26 +283,6 @@
     contactContainer.appendChild(btnDeleteContact);
 
     clientContacts.appendChild(contactContainer)
-
-
-    // contactData.addEventListener('input', () => {
-    //   contactData.classList.add('edit');
-    //   button.style = 'display: block';
-    // });
-
-    // const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-    // svg.classList.add('select__input-btn-arrow');
-    // svg.setAttribute("viewBox", "0 0 12 12");
-    // svg.setAttribute("width", 12);
-    // svg.setAttribute("height", 12);
-    // svg.setAttribute("fill", "none");
-
-    // const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-    // path.setAttribute("d", "M6 0C2.682 0 0 2.682 0 6C0 9.318 2.682 12 6 12C9.318 12 12 9.318 12 6C12 2.682 9.318 0 6 0ZM6 10.8C3.354 10.8 1.2 8.646 1.2 6C1.2 3.354 3.354 1.2 6 1.2C8.646 1.2 10.8 3.354 10.8 6C10.8 8.646 8.646 10.8 6 10.8ZM8.154 3L6 5.154L3.846 3L3 3.846L5.154 6L3 8.154L3.846 9L6 6.846L8.154 9L9 8.154L6.846 6L9 3.846L8.154 3Z");
-    // path.setAttribute("fill", "#B0B0B0");
-
-    // svg.append(path);
-    // button.append(svg);
 
   }
   
@@ -439,6 +353,8 @@
 
       if (modalCreateUpdateClient.client) {
         modalLabel.textContent = 'Изменить данные';
+
+        clientId.textContent = modalCreateUpdateClient.client.id;
         
         clientSurname.value = modalCreateUpdateClient.client.surname;
         clientName.value = modalCreateUpdateClient.client.name;
@@ -451,7 +367,7 @@
       } else {
 
         modalLabel.textContent = 'Новый клиент'
-        clientId.value = '';
+        clientId.textContent = '';
         clientSurname.value = '';
         clientName.value = '';
         clientLastname.value = '';
@@ -463,14 +379,14 @@
     modalBtnSubmit.addEventListener("click", (e) => {
       if (modalCreateUpdateClient.client?.id) {
         updateClient({
-          id: clientId.value,
+          id: clientId.textContent,
           surname: clientSurname.value,
           name: clientName.value,
           lastName: clientLastname.value,
           contacts: {}
         }, (data) => {
           console.log("Client was succesfully updated", data);
-          $('#modalCreateUpdateClient').modal('hide');
+          modalCreateUpdateClient.hide();
         })
       } else {
         createClient({
@@ -480,7 +396,7 @@
           contacts: {}
         }, (data) => {
           console.log("Client was succesfully created", data);
-          $('#modalCreateUpdateClient').modal('hide');
+          modalCreateUpdateClient.hide();
         })
       }
     });
@@ -500,7 +416,6 @@
         "value": ""
       })
     });
-
 
   });
 })();
