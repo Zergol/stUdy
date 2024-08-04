@@ -50,117 +50,127 @@
             <th data-column="contacts" class="table__thead-td"><span class="thead-contacts">Контакты</span></th>
             <th data-column="actions" class="table__thead-td"><span class="thead-actions">Действия</span></th>
           </thead>
-          <tbody class="main__table-tbody" id="clients-List">
-            <div class="tbody-background flex">
-              <div class="spinner-border" role="status">
-                <span class="visually-hidden">Загрузка...</span>
-              </div>
-            </div>
+          <tbody class="main__table-tbody" id="clientList">
           </tbody>
         </table>
+        <div class="tbody-background flex">
+          <div id="spinner" class="spinner-border" role="status">
+            <span class="visually-hidden">Загрузка...</span>
+          </div>
+        </div>
       </div>
 
       <!-- Кнопка-триггер модального окна "Добавить клиента"-->
       <div class="main__btn-container flex">
-        <button type="button" class="main__btn-add btn-cursor">Добавить клиента</button>
+        <button id="btnCreateClient" type="button" class="main__btn-add btn-cursor">Добавить клиента</button>
       </div>
 
-      <!-- Модальное окно "Добавить клиента"-->
-      <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+
+      <!-- Modal Create/Update -->
+
+      <div class="modal fade" id="modalCreateUpdateClient" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
         <div class="modal-dialog add">
           <div class="modal-content modal__add-content">
             <div class="modal__add-header flex">
-              <h3 class="modal__add-title" id="addModalLabel">Новый клиент</h3>
-              <button type="button" class="modal__add-btn btn-close"></button>
+              <h3 id="modalLabel" class="modal__add-title">Новый клиент
+              </h3>
+              <span id="clientId" class="modal__change-id">&nbsp;</span>
+              <button type="button" data-dismiss="modal" class="modal__add-btn btn-close"></button>
             </div>
             <form class="modal__form">
               <div class="modal__add-body">
                 <div class="form-floating">
-                  <input type="text" class="modal__add-input input form-control" placeholder="Фамилия" id="input-surname-1">
-                  <label class="modal__add-label label" for="input-surname-1">Фамилия<span style="color: #9873FF">*</span></label>
+                  <input id="clientSurname" type="text" class="modal__add-input input form-control" placeholder="Фамилия">
+                  <label class="modal__add-label label" for="clientSurname">Фамилия<span style="color: #9873FF">*</span></label>
                 </div>
                 <div class="form-floating">
-                  <input type="text" class="modal__add-input input form-control" placeholder="Имя" id="input-name-1">
-                  <label class="modal__add-label label" for="input-name-1">Имя<span style="color: #9873FF">*</span></label>
+                  <input id="clientName" type="text" class="modal__add-input input form-control" placeholder="Имя">
+                  <label class="modal__add-label label" for="clientName">Имя<span style="color: #9873FF">*</span></label>
                 </div>
                 <div class="form-floating">
-                  <input type="text" class="modal__add-input input form-control" placeholder="Отчество" id="input-lastName-1">
-                  <label class="modal__add-label label" for="input-lastName-1">Отчество</label>
+                  <input id="clientLastname" type="text" class="modal__add-input input form-control" placeholder="Отчество">
+                  <label class="modal__add-label label" for="clientLastname">Отчество</label>
                 </div>
               </div>
               <div class="modal__add-main-btn flex">
-                <div class="modal__add-form"></div>
-                <button type="button" class="footer__btn-add">Добавить контакт</button>
+                <div id="clientContacts" class="modal__add-form"></div>
+                <button id="modalBtnAddContact" type="button" class="footer__btn-add">Добавить контакт</button>
               </div>
               <div class="modal__add-footer flex">
-                <button type="submit" class="footer__btn-save footer__btn-save-add">Сохранить</button>
-                <button data-bs-dismiss="modal" class="footer__btn-cancel footer__btn-cancel-add">Отмена</button>
+                <!--TODO: figure out why submit type didn't trigger event in JS -->
+                <button id="modalBtnSubmit" type="button" class="footer__btn-save footer__btn-save-add">Сохранить</button>
+                <button data-dismiss="modal" class="footer__btn-cancel footer__btn-cancel-add">Отмена</button>
               </div>
             </form>
           </div>
         </div>
       </div>
 
-      <!-- Модальное окно "Изменить данные клиента"-->
-      <div class="modal fade" id="changeModal" tabindex="-1" aria-labelledby="changeModalLabel" aria-hidden="true">
-        <div class="modal-dialog change">
-          <div class="modal-content modal__change-content">
-            <div class="modal__change-header flex">
-              <h3 class="modal__change-title" id="changeModalLabel">
-                Изменить данные
-                <span class="modal__change-id" id="modalChangeID">ID: 123455</span>
-              </h3>
-              <button type="button" class="modal__change-btn btn-close"></button>
+
+
+
+      <div class="add__form-input">
+        <div class="dropdown bootstrap-select select dropup"><select class="select" tabindex="-98">
+            <option class="option" selected="true" value="phone">Телефон</option>
+            <option class="option" value="email">Email</option>
+            <option class="option" value="vk">VK</option>
+            <option class="option" value="fb">Facebook</option>
+            <option class="option" value="other">Другое</option>
+          </select><button type="button" class="btn dropdown-toggle btn-light" data-toggle="dropdown" role="combobox"
+            aria-owns="bs-select-2" aria-haspopup="listbox" aria-expanded="false" title="VK">
+            <div class="filter-option">
+              <div class="filter-option-inner">
+                <div class="filter-option-inner-inner">VK</div>
+              </div>
             </div>
-            <form class="modal__form">
-              <div class="modal__change-body">
-                <div class="form-floating">
-                  <input type="text" class="modal__change-input input form-control" placeholder="Фамилия" id="input-surname-2">
-                  <label class="modal__change-label label" for="input-surname-2">Фамилия<span style="color: #9873FF">*</span></label>
-                </div>
-                <div class="form-floating">
-                  <input type="text" class="modal__change-input input form-control" placeholder="Имя" id="input-name-2">
-                  <label class="modal__change-label label" for="input-name-2">Имя<span style="color: #9873FF">*</span></label>
-                </div>
-                <div class="form-floating">
-                  <input type="text" class="modal__change-input input form-control" placeholder="Отчество" id="input-lastName-2">
-                  <label class="modal__change-label label" for="input-lastName-2">Отчество</label>
-                </div>
-              </div>
-              <div class="modal__change-main-btn flex">
-                <div class="modal__change-form"></div>
-                <button type="button" class="footer__btn-change">Добавить контакт</button>
-              </div>
-              <div class="modal__change-footer flex">
-                <button type="submit" class="footer__btn-save footer__btn-save-change">
-                  <span class="spinner-border spinner-change" role="status" aria-hidden="true"></span>
-                  Сохранить
-                </button>
-                <button class="footer__btn-cancel footer__btn-cancel-change">Удалить клиента</button>
-              </div>
-            </form>
+          </button>
+          <div class="dropdown-menu" x-placement="bottom-start"
+            style="max-height: 489.188px; overflow: hidden; min-height: 85px; position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 36px, 0px);">
+            <div class="inner show" role="listbox" id="bs-select-2" tabindex="-1" aria-activedescendant="bs-select-2-2"
+              style="max-height: 488.188px; overflow-y: auto; min-height: 84px;">
+              <ul class="dropdown-menu inner show" role="presentation" style="margin-top: 0px; margin-bottom: 0px;">
+                <li class="selected active"><a role="option" class="dropdown-item option active selected" id="bs-select-2-0"
+                    tabindex="0" aria-setsize="5" aria-posinset="1" aria-selected="true"><span class="text">Телефон</span></a>
+                </li>
+                <li><a role="option" class="dropdown-item option" id="bs-select-2-1" tabindex="0" aria-setsize="5"
+                    aria-posinset="2"><span class="text">Email</span></a></li>
+                <li class="selected active"><a role="option" class="dropdown-item option active selected" id="bs-select-2-2"
+                    tabindex="0" aria-setsize="5" aria-posinset="3" aria-selected="true"><span class="text">VK</span></a></li>
+                <li><a role="option" class="dropdown-item option" id="bs-select-2-3" tabindex="0"><span
+                      class="text">Facebook</span></a></li>
+                <li><a role="option" class="dropdown-item option" id="bs-select-2-4" tabindex="0"><span
+                      class="text">Другое</span></a></li>
+              </ul>
+            </div>
           </div>
-        </div>
+        </div><input class="select__input edit" type="text" placeholder="Введите данные контакта"><button
+          class="select__input-btn" type="button" id="select__input-delete" style="display: block;"><svg
+            class="select__input-btn-arrow" viewBox="0 0 12 12" width="12" height="12" fill="none">
+            <path
+              d="M6 0C2.682 0 0 2.682 0 6C0 9.318 2.682 12 6 12C9.318 12 12 9.318 12 6C12 2.682 9.318 0 6 0ZM6 10.8C3.354 10.8 1.2 8.646 1.2 6C1.2 3.354 3.354 1.2 6 1.2C8.646 1.2 10.8 3.354 10.8 6C10.8 8.646 8.646 10.8 6 10.8ZM8.154 3L6 5.154L3.846 3L3 3.846L5.154 6L3 8.154L3.846 9L6 6.846L8.154 9L9 8.154L6.846 6L9 3.846L8.154 3Z"
+              fill="#B0B0B0"></path>
+          </svg></button>
       </div>
 
       <!-- Модально окно "Удалить клиента"-->
-      <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+      <div class="modal fade" id="modalDeleteClient" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content modal__delete-content">
             <div class="modal__delete-header flex">
               <h3 class="modal__delete-title" id="deleteModalLabel">Удалить клиента</h3>
-              <button class="modal__delete-btn btn-close"></button>
+              <button type="button" data-dismiss="modal" class="modal__delete-btn btn-close"></button>
             </div>
             <div class="modal__delete-body flex">
               <p class="modal__delete-question">Вы действительно хотите удалить данного клиента?</p>
-              <button type="submit" class="modal__delete-second-btn">Удалить</button>
-              <button class="modal__delete-cancel">Отмена</button>
+              <button id="modalDeleteClientBtnSubmit"  type="button" class="modal__delete-second-btn">Удалить</button>
+              <button data-dismiss="modal" class="modal__delete-cancel">Отмена</button>
             </div>
           </div>
         </div>
       </div>
 
     </div>
+    <div id="logMessages"></div>
   </main>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/@popperjs/core@2"></script>
