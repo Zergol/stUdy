@@ -20,6 +20,10 @@
   let logMessages = [];
   let isLoading = false;
 
+
+
+//TODO: cleanup the code
+
   // ТулТип
   function addToolTip(clientsList) {
     for (let i = 0; i < clientsList.length; ++i) {
@@ -678,10 +682,15 @@
         return response.json();
       })
       .then((data) => {
-          clientList = data;
-          console.log('Client list:', clientList);
-          clearTable();
-          drawTable();
+//FIXME: change to proper object comparision
+          if (clientList !== data) {
+            clientList = data;
+            console.log('Got new client list:', clientList);
+            clearTable();
+            drawTable();
+          } else {
+            console.log('Data is not changed...');
+          }
           setIsLoading(false);
         })
       .catch((error) => {
