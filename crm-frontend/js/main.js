@@ -1,7 +1,7 @@
 // Включаю строгий режим, для предотвращения случайного создания глобальных переменных
 'use strict';
 
-import 'lib/api'
+import api from './lib/api.js'
 
 // IIFE (вызывов функции непосредственно после ее определения)
 (() => {
@@ -12,9 +12,6 @@ import 'lib/api'
 //
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-
-  const SERVER_BASE_URL = 'http://localhost:3000';
-  const SERVER_URL = `${SERVER_BASE_URL}/api/clients`;
 
   const REGEXP_PERSON_NAME = /(^[A-Z]{1}[a-z]{1,50}$)|(^[А-Я]{1}[а-я]{1,50}$)/;
 
@@ -73,8 +70,7 @@ import 'lib/api'
       } else {
         console.log('Data is not changed...');
       }
-      },
-      () => setIsLoading(false)
+      }
     )
   }
 
@@ -186,7 +182,7 @@ import 'lib/api'
     modalDeleteClient.show();
   }
 
-  function addContact(contact) {
+  function addContactToModal(contact) {
 
     console.log(contact);
 
@@ -226,6 +222,18 @@ import 'lib/api'
 
   }
 
+  function getContactsFromModal() {
+    let contacts = [];
+    clientContacts.querySelectorAll('div').forEach((item) => {
+        console.log('TYPE:',  item.querySelector('option[selected="true"]').textContent, 'VALUE:' , item.querySelector('input').value)
+        contacts.push({
+          "type": item.querySelector('option:checked').textContent,
+          "value": item.querySelector('input').value
+        })
+    });
+    return contacts;
+  }
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // Main
@@ -253,13 +261,16 @@ import 'lib/api'
 
 
     // Initialisation
-    console.log('SERVER_URL: ', SERVER_URL);
+//    console.log('SERVER_URL: ', SERVER_URL);
+
+    api.init('http://localhost:3000', logMessages, () => setIsLoading(false))
 
     pollData();
     setInterval(() => {
       pollData();
     }, 5000);
 
+    
     // modal init
 
 
@@ -301,7 +312,7 @@ import 'lib/api'
         clientLastname.value = modalCreateUpdateClient.client.lastName;
 
         modalCreateUpdateClient.client.contacts.forEach((contact) => {
-          addContact(contact)
+          addContactToModal(contact)
         })
         modalBtnSubmit.textContent='Обновить'
       } else {
@@ -323,7 +334,7 @@ import 'lib/api'
           surname: clientSurname.value,
           name: clientName.value,
           lastName: clientLastname.value,
-          contacts: {}
+          contacts: getContactsFromModal(),
         }, (data) => {
           console.log("Client was succesfully updated", data);
           modalCreateUpdateClient.hide();
@@ -333,7 +344,7 @@ import 'lib/api'
           surname: clientSurname.value,
           name: clientName.value,
           lastName: clientLastname.value,
-          contacts: {}
+          contacts: getContactsFromModal(),
         }, (data) => {
           console.log("Client was succesfully created", data);
           modalCreateUpdateClient.hide();
@@ -351,7 +362,7 @@ import 'lib/api'
     });
 
     modalBtnAddContact.addEventListener('click', (e) => {
-      addContact({
+      addContactToModal({
         "type": "Телефон",
         "value": ""
       })

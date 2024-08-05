@@ -1,6 +1,21 @@
 // API
 
+let SERVER_BASE_URL;
+let SERVER_URL;
+let logMessages;
+let cleanupCallback;
+
 const api = {
+    init: (url, logs, callback) => {
+        SERVER_BASE_URL = url;
+        SERVER_URL = `${SERVER_BASE_URL}/api/clients`;
+        logMessages = logs;
+        cleanupCallback = (error) => {
+            logMessages.push(error);
+            callback();
+        }
+    },
+
     createClient: (client, callback) => {
     fetch(`${SERVER_URL}`, {
       method: 'POST',
@@ -12,11 +27,15 @@ const api = {
       }),
       headers: { 'Content-Type': 'application/json' },
     })
+    .then((response) => {
+        if (!response.ok) {
+            throw new Error(`HTTP error, status = ${response.status}`);
+        }
+        return response.json();
+    })
     .then(callback)
-    .catch((error) => {
-      logMessages.push(error);
-    });
-  },
+    .catch(cleanupCallback);
+    },
 
   updateClient: (client, callback) => {
     fetch(`${SERVER_URL}/${client.id}`, {
@@ -29,23 +48,31 @@ const api = {
       }),
       headers: { 'Content-Type': 'application/json' },
     })
+    .then((response) => {
+        if (!response.ok) {
+            throw new Error(`HTTP error, status = ${response.status}`);
+        }
+        return response.json();
+    })
     .then(callback)
-    .catch((error) => {
-      logMessages.push(error);
-    });
-  },
+    .catch(cleanupCallback);
+},
 
   deleteClient: (client, callback) => {
     fetch(`${SERVER_URL}/${client.id}`, {
       method: 'DELETE',
     })
+    .then((response) => {
+        if (!response.ok) {
+            throw new Error(`HTTP error, status = ${response.status}`);
+        }
+        return response.json();
+    })
     .then(callback)
-    .catch((error) => {
-      logMessages.push(error);
-    });
-  },
+    .catch(cleanupCallback);
+},
 
-  getClients: (callback, cleanupCallback) => {
+  getClients: (callback) => {
     fetch(SERVER_URL)
       .then((response) => {
         if (!response.ok) {
@@ -56,11 +83,8 @@ const api = {
       .then((data) => {
           callback(data);
           cleanupCallback();
-        })
-      .catch((error) => {
-        logMessages.push(error);
-        cleanupCallback();
-      });
+      })
+      .catch(cleanupCallback);
   }
 }
 
