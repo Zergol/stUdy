@@ -225,6 +225,7 @@
 
         const btnDeleteClient = document.createElement('button');
         btnDeleteClient.classList.add('tbody__td-btn', 'btn-delete');
+        btnDeleteClient.append('Удалить');
         btnDeleteClient.addEventListener('click', () => {
           showDeleteModal(clientList[i])
         });
