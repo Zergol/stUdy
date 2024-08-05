@@ -1,6 +1,8 @@
 // Включаю строгий режим, для предотвращения случайного создания глобальных переменных
 'use strict';
 
+import 'lib/api'
+
 // IIFE (вызывов функции непосредственно после ее определения)
 (() => {
 
@@ -58,74 +60,10 @@
     else spinner.style = 'display: block';
   }
 
-// API
-
-  function createClient(client, callback) {
-    fetch(`${SERVER_URL}`, {
-      method: 'POST',
-      body: JSON.stringify({
-        surname: client.surname,
-        name: client.name,
-        lastName: client.lastName,
-        contacts: client.contacts
-      }),
-      headers: { 'Content-Type': 'application/json' },
-    })
-    .then(callback)
-    .catch((error) => {
-      logMessages.push(error);
-    });
-  }
-
-  function updateClient(client, callback) {
-    fetch(`${SERVER_URL}/${client.id}`, {
-      method: 'PATCH',
-      body: JSON.stringify({
-        surname: client.surname,
-        name: client.name,
-        lastName: client.lastName,
-        contacts: client.contacts
-      }),
-      headers: { 'Content-Type': 'application/json' },
-    })
-    .then(callback)
-    .catch((error) => {
-      logMessages.push(error);
-    });
-  }
-
-  function deleteClient(client, callback) {
-    fetch(`${SERVER_URL}/${client.id}`, {
-      method: 'DELETE',
-    })
-    .then(callback)
-    .catch((error) => {
-      logMessages.push(error);
-    });
-  }
-
-  function getClients(callback, cleanupCallback) {
-    fetch(SERVER_URL)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error, status = ${response.status}`);
-        }
-        return response.json();
-      })
-      .then((data) => {
-          callback(data);
-          cleanupCallback();
-        })
-      .catch((error) => {
-        logMessages.push(error);
-        cleanupCallback();
-      });
-  }
-
   function pollData() {
     if (isLoading) return;
     setIsLoading(true);
-    getClients((data) => {
+    api.getClients((data) => {
         //FIXME: change to proper object comparision
         if (clientList !== data) {
         clientList = data;
@@ -378,7 +316,7 @@
 
     modalBtnSubmit.addEventListener("click", (e) => {
       if (modalCreateUpdateClient.client?.id) {
-        updateClient({
+        api.updateClient({
           id: clientId.textContent,
           surname: clientSurname.value,
           name: clientName.value,
@@ -389,7 +327,7 @@
           modalCreateUpdateClient.hide();
         })
       } else {
-        createClient({
+        api.createClient({
           surname: clientSurname.value,
           name: clientName.value,
           lastName: clientLastname.value,
@@ -402,7 +340,7 @@
     });
 
     modalDeleteClientBtnSubmit.addEventListener("click", (e) => {
-      deleteClient(modalDeleteClient.client, (data) => {
+      api.deleteClient(modalDeleteClient.client, (data) => {
         console.log("Client was succesfully deleted", data);
         modalDeleteClient.hide();
 //TODO: figure out why jQuery access to modal is not working
