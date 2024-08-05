@@ -5,6 +5,7 @@
 (() => {
   const SERVER_URL = 'http://localhost:3000/api/clients';
   const regExp = /(^[A-Z]{1}[a-z]{1,50}$)|(^[А-Я]{1}[а-я]{1,50}$)/;
+  // let contacts = [];
 
   // ТулТип
   function addToolTip(clientsList) {
@@ -171,6 +172,93 @@
         break;
       default:
         break;
+    }
+  }
+
+  function createdContact (contacts) {
+    const modalChangeAddContact = document.querySelector('.footer__btn-change');
+    let counterOfContacts = 0;
+
+    const modalChangeContact = document.querySelector('.modal__change-form');
+    modalChangeContact.style = 'margin-top 25px';
+    const contactFormInput = document.createElement('div');
+    contactFormInput.classList.add('add__form-input');
+
+    const changeSelect = document.createElement('select');
+    changeSelect.classList.add('select');
+
+    const ListOptionsItem = ['Телефон', 'Email', 'VK', 'Facebook', 'Другое'];
+    const ListOptionsValue = ['phone', 'email', 'vk', 'fb', 'other'];
+    for (let i = 0; i < ListOptionsItem.length; ++i) {
+      const option = document.createElement('option');
+      option.classList.add('option');
+      if (!i) option.setAttribute('selected', true);
+      option.setAttribute('value', ListOptionsValue[i]);
+      option.textContent = ListOptionsItem[i];
+      changeSelect.append(option);
+    };
+    // changeSelect.innerHTML = contacts.type;
+
+    const changeInput = document.createElement('input');
+    changeInput.classList.add('select__input');
+    changeInput.setAttribute('type', 'text');
+    changeInput.setAttribute('placeholder', 'Введите данные контакта');
+    changeInput.value = contacts.value;
+
+    const button = document.createElement('button');
+    button.classList.add('select__input-btn');
+    button.setAttribute('type', 'button');
+    button.id = 'select__input-delete';
+    button.style = 'display: none';
+
+    changeInput.addEventListener('input', () => {
+      changeInput.classList.add('edit');
+      button.style = 'display: block';
+    });
+
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.classList.add('select__input-btn-arrow');
+    svg.setAttribute("viewBox", "0 0 12 12");
+    svg.setAttribute("width", 12);
+    svg.setAttribute("height", 12);
+    svg.setAttribute("fill", "none");
+
+    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    path.setAttribute("d", "M6 0C2.682 0 0 2.682 0 6C0 9.318 2.682 12 6 12C9.318 12 12 9.318 12 6C12 2.682 9.318 0 6 0ZM6 10.8C3.354 10.8 1.2 8.646 1.2 6C1.2 3.354 3.354 1.2 6 1.2C8.646 1.2 10.8 3.354 10.8 6C10.8 8.646 8.646 10.8 6 10.8ZM8.154 3L6 5.154L3.846 3L3 3.846L5.154 6L3 8.154L3.846 9L6 6.846L8.154 9L9 8.154L6.846 6L9 3.846L8.154 3Z");
+    path.setAttribute("fill", "#B0B0B0");
+
+    svg.append(path);
+    button.append(svg);
+
+    button.addEventListener('click', () => {
+      contactFormInput.remove();
+      --counterOfContacts;
+      if (counterOfContacts == 9) {
+        modalChangeAddContact.style = 'display: block';
+        modalChangeAddContact.style = 'margin-bottom: 25px';
+      }
+      if (!counterOfContacts) {
+        modalChangeAddContact.style = 'margin-bottom: 0px';
+        modalChangeContact.style = 'margin-top: 0px';
+      }
+    });
+
+    contactFormInput.append(changeSelect);
+    contactFormInput.append(changeInput);
+    contactFormInput.append(button);
+    modalChangeContact.append(contactFormInput);
+
+    $('.add__form-input select').selectpicker();
+    tippy('#select__input-delete', {
+      theme: 'tooltipTheme',
+      content: "<strong>Удалить контакт</strong>",
+      allowHTML: true,
+    });
+
+    ++counterOfContacts;
+
+    if (counterOfContacts === 10) {
+      modalChangeAddContact.style = 'display: none';
     }
   }
 
@@ -343,6 +431,13 @@
               } else {
                 inputLabel[2].classList.remove('focus-label');
               }
+
+              let contactsUI = $('.modal__change-form').empty();
+
+              clientsList[i].contacts.forEach(contactItem => contactsUI.append(
+                // '<p>' + contactItem.type + ': ' + contactItem.value + '</p>'
+                createdContact(contactItem)
+              ));
 
               // модалка Change
               const btnChangeModal = document.querySelector('.footer__btn-save-change');
