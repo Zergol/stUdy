@@ -163,7 +163,7 @@
 
       // Fullname
       tr.appendChild(td = document.createElement('td'))
-        td.classList.add('td__fio', 'td-text');
+        td.classList.add('td__fio');
         td.textContent = `${clientList[i].surname} ${clientList[i].name} ${clientList[i].lastName}`;
 
       // Created
