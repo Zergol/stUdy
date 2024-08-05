@@ -13,12 +13,12 @@
 
   const SERVER_BASE_URL = 'http://localhost:3000';
   const SERVER_URL = `${SERVER_BASE_URL}/api/clients`;
-  
+
   const REGEXP_PERSON_NAME = /(^[A-Z]{1}[a-z]{1,50}$)|(^[А-Я]{1}[а-я]{1,50}$)/;
 
   const optionItems = [
     {type: 'phone', value: 'Телефон'},
-    {type: 'email', value: 'Email'}, 
+    {type: 'email', value: 'Email'},
     {type: 'vk', value: 'VK'},
     {type: 'fb', value: 'Facebook'},
     {type: 'other', value: 'Другое'}
@@ -29,10 +29,10 @@
   let isLoading = false;
 
   let btnCreateClient;
-  
+
   let modalCreateUpdateClient;
   let modalDeleteClient;
-  
+
   let modalLabel;
   let clientId;
   let clientSurname;
@@ -147,7 +147,7 @@
   }
 
   function drawTable() {
-    
+
     let clients = document.getElementById('clientList');
 
     for(let i=0; i < clientList.length; i++) {
@@ -163,7 +163,7 @@
 
       // Fullname
       tr.appendChild(td = document.createElement('td'))
-        td.classList.add('td__fio');
+        td.classList.add('td__fio', 'td-text');
         td.textContent = `${clientList[i].surname} ${clientList[i].name} ${clientList[i].lastName}`;
 
       // Created
@@ -175,7 +175,7 @@
         span.classList.add('td-text');
         span.textContent = `${createdAt.getHours().toString().padStart(2, '0')}:${createdAt.getMinutes()}`;
         td.appendChild(span);
-  
+
       // Updated
       tr.appendChild(td = document.createElement('td'))
         updatedAt = new Date(clientList[i].updatedAt);
@@ -217,6 +217,7 @@
         td.classList.add('td__actions');
         const btnUpdateClient = document.createElement('button');
         btnUpdateClient.classList.add('tbody__td-btn', 'btn-change');
+        btnUpdateClient.textContent = 'Изменить';
         btnUpdateClient.addEventListener('click', () => {
           showCreateUpdateModal(clientList[i])
         });
@@ -247,7 +248,7 @@
   }
 
   function addContact(contact) {
-    
+
     console.log(contact);
 
     const contactContainer = document.createElement('div');
@@ -285,7 +286,7 @@
     clientContacts.appendChild(contactContainer)
 
   }
-  
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // Main
@@ -321,7 +322,7 @@
     }, 5000);
 
     // modal init
-    
+
 
     modalCreateUpdateClient = new bootstrap.Modal(document.getElementById('modalCreateUpdateClient'));
     modalDeleteClient = new bootstrap.Modal(document.getElementById('modalDeleteClient'));
@@ -355,15 +356,15 @@
         modalLabel.textContent = 'Изменить данные';
 
         clientId.textContent = modalCreateUpdateClient.client.id;
-        
+
         clientSurname.value = modalCreateUpdateClient.client.surname;
         clientName.value = modalCreateUpdateClient.client.name;
         clientLastname.value = modalCreateUpdateClient.client.lastName;
 
         modalCreateUpdateClient.client.contacts.forEach((contact) => {
           addContact(contact)
-        })        
-        modalBtnSubmit.textContent='Обновить'  
+        })
+        modalBtnSubmit.textContent='Обновить'
       } else {
 
         modalLabel.textContent = 'Новый клиент'
@@ -372,7 +373,7 @@
         clientName.value = '';
         clientLastname.value = '';
 
-        modalBtnSubmit.textContent='Сохранить'  
+        modalBtnSubmit.textContent='Сохранить'
       }
     })
 
