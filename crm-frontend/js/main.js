@@ -217,7 +217,8 @@
         td.classList.add('td__actions');
         const btnUpdateClient = document.createElement('button');
         btnUpdateClient.classList.add('tbody__td-btn', 'btn-change');
-        btnUpdateClient.textContent = 'Изменить';
+        // btnUpdateClient.textContent = 'Изменить';
+        btnUpdateClient.append('Изменить');
         btnUpdateClient.addEventListener('click', () => {
           showCreateUpdateModal(clientList[i])
         });
