@@ -15,12 +15,12 @@ import 'lib/api'
 
   const SERVER_BASE_URL = 'http://localhost:3000';
   const SERVER_URL = `${SERVER_BASE_URL}/api/clients`;
-  
+
   const REGEXP_PERSON_NAME = /(^[A-Z]{1}[a-z]{1,50}$)|(^[А-Я]{1}[а-я]{1,50}$)/;
 
   const optionItems = [
     {type: 'phone', value: 'Телефон'},
-    {type: 'email', value: 'Email'}, 
+    {type: 'email', value: 'Email'},
     {type: 'vk', value: 'VK'},
     {type: 'fb', value: 'Facebook'},
     {type: 'other', value: 'Другое'}
@@ -31,10 +31,10 @@ import 'lib/api'
   let isLoading = false;
 
   let btnCreateClient;
-  
+
   let modalCreateUpdateClient;
   let modalDeleteClient;
-  
+
   let modalLabel;
   let clientId;
   let clientSurname;
@@ -85,7 +85,7 @@ import 'lib/api'
   }
 
   function drawTable() {
-    
+
     let clients = document.getElementById('clientList');
 
     for(let i=0; i < clientList.length; i++) {
@@ -113,7 +113,7 @@ import 'lib/api'
         span.classList.add('td-text');
         span.textContent = `${createdAt.getHours().toString().padStart(2, '0')}:${createdAt.getMinutes()}`;
         td.appendChild(span);
-  
+
       // Updated
       tr.appendChild(td = document.createElement('td'))
         updatedAt = new Date(clientList[i].updatedAt);
@@ -155,6 +155,7 @@ import 'lib/api'
         td.classList.add('td__actions');
         const btnUpdateClient = document.createElement('button');
         btnUpdateClient.classList.add('tbody__td-btn', 'btn-change');
+        btnUpdateClient.append('Изменить');
         btnUpdateClient.addEventListener('click', () => {
           showCreateUpdateModal(clientList[i])
         });
@@ -162,6 +163,7 @@ import 'lib/api'
 
         const btnDeleteClient = document.createElement('button');
         btnDeleteClient.classList.add('tbody__td-btn', 'btn-delete');
+        btnDeleteClient.append('Удалить');
         btnDeleteClient.addEventListener('click', () => {
           showDeleteModal(clientList[i])
         });
@@ -185,7 +187,7 @@ import 'lib/api'
   }
 
   function addContact(contact) {
-    
+
     console.log(contact);
 
     const contactContainer = document.createElement('div');
@@ -223,7 +225,7 @@ import 'lib/api'
     clientContacts.appendChild(contactContainer)
 
   }
-  
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // Main
@@ -259,7 +261,7 @@ import 'lib/api'
     }, 5000);
 
     // modal init
-    
+
 
     modalCreateUpdateClient = new bootstrap.Modal(document.getElementById('modalCreateUpdateClient'));
     modalDeleteClient = new bootstrap.Modal(document.getElementById('modalDeleteClient'));
@@ -293,15 +295,15 @@ import 'lib/api'
         modalLabel.textContent = 'Изменить данные';
 
         clientId.textContent = modalCreateUpdateClient.client.id;
-        
+
         clientSurname.value = modalCreateUpdateClient.client.surname;
         clientName.value = modalCreateUpdateClient.client.name;
         clientLastname.value = modalCreateUpdateClient.client.lastName;
 
         modalCreateUpdateClient.client.contacts.forEach((contact) => {
           addContact(contact)
-        })        
-        modalBtnSubmit.textContent='Обновить'  
+        })
+        modalBtnSubmit.textContent='Обновить'
       } else {
 
         modalLabel.textContent = 'Новый клиент'
@@ -310,7 +312,7 @@ import 'lib/api'
         clientName.value = '';
         clientLastname.value = '';
 
-        modalBtnSubmit.textContent='Сохранить'  
+        modalBtnSubmit.textContent='Сохранить'
       }
     })
 
