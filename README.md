@@ -14,7 +14,7 @@ Twich content was saved at [YouTube](http://www.youtube.com/@ComradePashka) chan
 # TODO:
 
  - [ ] 📖check markdown documentation [WikiPedia](https://en.wikipedia.org/wiki/Markdown), MarkdownGuide: [Basic Syntax](https://www.markdownguide.org/basic-syntax/), [Extended Syntax](https://www.markdownguide.org/extended-syntax/)
- - [ ] create package.json [General information](https://docs.npmjs.com/cli/v10/configuring-npm/package-json), [creating package.json](https://docs.npmjs.com/creating-a-package-json-file)
+ - [x] migrate to monorepo -- package.json [general information](https://docs.npmjs.com/cli/v10/configuring-npm/package-json), [creating package.json](https://docs.npmjs.com/creating-a-package-json-file)
  - [ ] add project title and description (top of this file) 🔝
  - [ ] add validation with error messaging to the form. [Basics](https://www.w3schools.com/js/js_validation.asp), [details](https://developer.mozilla.org/en-US/docs/Learn/Forms/Form_validation)
  - [ ] add more items to this list
