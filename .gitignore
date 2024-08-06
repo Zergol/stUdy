@@ -36,3 +36,10 @@ yarn-error.log*
 
 # local env files
 .env*.local
+
+# turbo
+.turbo
+
+#VSCode
+.vscode
+
