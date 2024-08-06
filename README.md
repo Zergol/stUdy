@@ -4,7 +4,7 @@ Project description
 
 ## Monorepo notes
 
-Project was turned to minimalistic monorepo, using turbo with single command to start backend and frontent servers.
+Project was turned to minimalistic monorepo, using [turbo](turbo.build/repo/docs) with single command to start backend and frontend servers.
 
 # Stream video
 
