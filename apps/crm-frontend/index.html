@@ -108,49 +108,50 @@
 
 
 
-
-      <div class="add__form-input">
-        <div class="dropdown bootstrap-select select dropup"><select class="select" tabindex="-98">
-            <option class="option" selected="true" value="phone">Телефон</option>
-            <option class="option" value="email">Email</option>
-            <option class="option" value="vk">VK</option>
-            <option class="option" value="fb">Facebook</option>
-            <option class="option" value="other">Другое</option>
-          </select><button type="button" class="btn dropdown-toggle btn-light" data-toggle="dropdown" role="combobox"
-            aria-owns="bs-select-2" aria-haspopup="listbox" aria-expanded="false" title="VK">
-            <div class="filter-option">
-              <div class="filter-option-inner">
-                <div class="filter-option-inner-inner">VK</div>
+      <div class="hidden-form">
+        <div class="add__form-input">
+          <div class="dropdown bootstrap-select select dropup"><select class="select" tabindex="-98">
+              <option class="option" selected="true" value="phone">Телефон</option>
+              <option class="option" value="email">Email</option>
+              <option class="option" value="vk">VK</option>
+              <option class="option" value="fb">Facebook</option>
+              <option class="option" value="other">Другое</option>
+            </select><button type="button" class="btn dropdown-toggle btn-light" data-toggle="dropdown" role="combobox"
+              aria-owns="bs-select-2" aria-haspopup="listbox" aria-expanded="false" title="VK">
+              <div class="filter-option">
+                <div class="filter-option-inner">
+                  <div class="filter-option-inner-inner">VK</div>
+                </div>
+              </div>
+            </button>
+            <div class="dropdown-menu" x-placement="bottom-start"
+              style="max-height: 489.188px; overflow: hidden; min-height: 85px; position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 36px, 0px);">
+              <div class="inner show" role="listbox" id="bs-select-2" tabindex="-1" aria-activedescendant="bs-select-2-2"
+                style="max-height: 488.188px; overflow-y: auto; min-height: 84px;">
+                <ul class="dropdown-menu inner show" role="presentation" style="margin-top: 0px; margin-bottom: 0px;">
+                  <li class="selected active"><a role="option" class="dropdown-item option active selected" id="bs-select-2-0"
+                      tabindex="0" aria-setsize="5" aria-posinset="1" aria-selected="true"><span class="text">Телефон</span></a>
+                  </li>
+                  <li><a role="option" class="dropdown-item option" id="bs-select-2-1" tabindex="0" aria-setsize="5"
+                      aria-posinset="2"><span class="text">Email</span></a></li>
+                  <li class="selected active"><a role="option" class="dropdown-item option active selected" id="bs-select-2-2"
+                      tabindex="0" aria-setsize="5" aria-posinset="3" aria-selected="true"><span class="text">VK</span></a></li>
+                  <li><a role="option" class="dropdown-item option" id="bs-select-2-3" tabindex="0"><span
+                        class="text">Facebook</span></a></li>
+                  <li><a role="option" class="dropdown-item option" id="bs-select-2-4" tabindex="0"><span
+                        class="text">Другое</span></a></li>
+                </ul>
               </div>
             </div>
-          </button>
-          <div class="dropdown-menu" x-placement="bottom-start"
-            style="max-height: 489.188px; overflow: hidden; min-height: 85px; position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 36px, 0px);">
-            <div class="inner show" role="listbox" id="bs-select-2" tabindex="-1" aria-activedescendant="bs-select-2-2"
-              style="max-height: 488.188px; overflow-y: auto; min-height: 84px;">
-              <ul class="dropdown-menu inner show" role="presentation" style="margin-top: 0px; margin-bottom: 0px;">
-                <li class="selected active"><a role="option" class="dropdown-item option active selected" id="bs-select-2-0"
-                    tabindex="0" aria-setsize="5" aria-posinset="1" aria-selected="true"><span class="text">Телефон</span></a>
-                </li>
-                <li><a role="option" class="dropdown-item option" id="bs-select-2-1" tabindex="0" aria-setsize="5"
-                    aria-posinset="2"><span class="text">Email</span></a></li>
-                <li class="selected active"><a role="option" class="dropdown-item option active selected" id="bs-select-2-2"
-                    tabindex="0" aria-setsize="5" aria-posinset="3" aria-selected="true"><span class="text">VK</span></a></li>
-                <li><a role="option" class="dropdown-item option" id="bs-select-2-3" tabindex="0"><span
-                      class="text">Facebook</span></a></li>
-                <li><a role="option" class="dropdown-item option" id="bs-select-2-4" tabindex="0"><span
-                      class="text">Другое</span></a></li>
-              </ul>
-            </div>
-          </div>
-        </div><input class="select__input edit" type="text" placeholder="Введите данные контакта"><button
-          class="select__input-btn" type="button" id="select__input-delete" style="display: block;"><svg
-            class="select__input-btn-arrow" viewBox="0 0 12 12" width="12" height="12" fill="none">
-            <path
-              d="M6 0C2.682 0 0 2.682 0 6C0 9.318 2.682 12 6 12C9.318 12 12 9.318 12 6C12 2.682 9.318 0 6 0ZM6 10.8C3.354 10.8 1.2 8.646 1.2 6C1.2 3.354 3.354 1.2 6 1.2C8.646 1.2 10.8 3.354 10.8 6C10.8 8.646 8.646 10.8 6 10.8ZM8.154 3L6 5.154L3.846 3L3 3.846L5.154 6L3 8.154L3.846 9L6 6.846L8.154 9L9 8.154L6.846 6L9 3.846L8.154 3Z"
-              fill="#B0B0B0"></path>
-          </svg></button>
-      </div>
+          </div><input class="select__input edit" type="text" placeholder="Введите данные контакта"><button
+            class="select__input-btn" type="button" id="select__input-delete" style="display: block;"><svg
+              class="select__input-btn-arrow" viewBox="0 0 12 12" width="12" height="12" fill="none">
+              <path
+                d="M6 0C2.682 0 0 2.682 0 6C0 9.318 2.682 12 6 12C9.318 12 12 9.318 12 6C12 2.682 9.318 0 6 0ZM6 10.8C3.354 10.8 1.2 8.646 1.2 6C1.2 3.354 3.354 1.2 6 1.2C8.646 1.2 10.8 3.354 10.8 6C10.8 8.646 8.646 10.8 6 10.8ZM8.154 3L6 5.154L3.846 3L3 3.846L5.154 6L3 8.154L3.846 9L6 6.846L8.154 9L9 8.154L6.846 6L9 3.846L8.154 3Z"
+                fill="#B0B0B0"></path>
+            </svg></button>
+        </div>
+      </div>  
 
       <!-- Модально окно "Удалить клиента"-->
       <div class="modal fade" id="modalDeleteClient" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">

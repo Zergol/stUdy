@@ -277,7 +277,7 @@ import api from './lib/api.js'
     pollData();
     setInterval(() => {
       pollData();
-    }, 5000);
+    }, 3000);
 
     
     // modal init

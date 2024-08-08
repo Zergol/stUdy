@@ -218,6 +218,10 @@ img {
   color: var(--black);
 }
 
+.hidden-form {
+  display: none;
+}
+
 /* table thead */
 .main__table {
   width: 100%;
@@ -352,7 +356,7 @@ img {
 
 .tbody-id {
   padding-left: 20px;
-  padding-right: 20px;
+  padding-right: 10px;
 }
 
 .td-text {
