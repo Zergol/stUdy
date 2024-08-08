@@ -6,17 +6,17 @@ let logMessages;
 let cleanupCallback;
 
 const api = {
-    init: (url, logs, callback) => {
-        SERVER_BASE_URL = url;
-        SERVER_URL = `${SERVER_BASE_URL}/api/clients`;
-        logMessages = logs;
-        cleanupCallback = (error) => {
-            logMessages.push(error);
-            callback();
-        }
-    },
+  init: (url, logs, callback) => {
+      SERVER_BASE_URL = url;
+      SERVER_URL = `${SERVER_BASE_URL}/api/clients`;
+      logMessages = logs;
+      cleanupCallback = (error) => {
+          logMessages.push(error);
+          callback();
+      }
+  },
 
-    createClient: (client, callback) => {
+  createClient: (client, callback) => {
     fetch(`${SERVER_URL}`, {
       method: 'POST',
       body: JSON.stringify({
@@ -35,7 +35,7 @@ const api = {
     })
     .then(callback)
     .catch(cleanupCallback);
-    },
+  },
 
   updateClient: (client, callback) => {
     fetch(`${SERVER_URL}/${client.id}`, {
@@ -56,7 +56,7 @@ const api = {
     })
     .then(callback)
     .catch(cleanupCallback);
-},
+  },
 
   deleteClient: (client, callback) => {
     fetch(`${SERVER_URL}/${client.id}`, {
@@ -70,7 +70,7 @@ const api = {
     })
     .then(callback)
     .catch(cleanupCallback);
-},
+  },
 
   getClients: (callback) => {
     fetch(SERVER_URL)
