@@ -366,6 +366,10 @@ img {
   color: var(--txt-grey);
 }
 
+.td-time {
+  padding-left: 3px;
+}
+
 .td__contacts {
   width: 160px;
 }

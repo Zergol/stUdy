@@ -112,21 +112,29 @@ import api from './lib/api.js'
       // Created
       tr.appendChild(td = document.createElement('td'))
         createdAt = new Date(clientList[i].createdAt);
+        let mmCreatedAt = createdAt.getMonth() + 1;
+        let minutesCreatedAt = createdAt.getMinutes();
+        if (mmCreatedAt < 10) mmCreatedAt = '0' + mmCreatedAt;
+        if (minutesCreatedAt < 10) minutesCreatedAt = '0' + minutesCreatedAt;
         td.classList.add('td__create');
-        td.textContent = `${createdAt.getDate().toString().padStart(2, '0')}.${createdAt.getMonth().toString().padStart(2, '0')}.${createdAt.getFullYear()}`;
+        td.textContent = `${createdAt.getDate().toString().padStart(2, '0')}.${mmCreatedAt}.${createdAt.getFullYear()}`;
         span = document.createElement('span');
-        span.classList.add('td-text');
-        span.textContent = `${createdAt.getHours().toString().padStart(2, '0')}:${createdAt.getMinutes()}`;
+        span.classList.add('td-text', 'td-time');
+        span.textContent = `${createdAt.getHours().toString().padStart(2, '0')}:${minutesCreatedAt}`;
         td.appendChild(span);
 
       // Updated
       tr.appendChild(td = document.createElement('td'))
         updatedAt = new Date(clientList[i].updatedAt);
+        let mmUpdatedAt = updatedAt.getMonth() + 1;
+        let minutesUpdatedAt = updatedAt.getMinutes();
+        if (mmUpdatedAt < 10) mmUpdatedAt = '0' + mmUpdatedAt;
+        if (minutesUpdatedAt < 10) minutesUpdatedAt = '0' + minutesUpdatedAt;
         td.classList.add('td__create');
-        td.textContent = `${updatedAt.getDate().toString().padStart(2, '0')}.${updatedAt.getMonth().toString().padStart(2, '0')}.${updatedAt.getFullYear()}`;
+        td.textContent = `${updatedAt.getDate().toString().padStart(2, '0')}.${mmUpdatedAt}.${updatedAt.getFullYear()}`;
         span = document.createElement('span');
-        span.classList.add('td-text');
-        span.textContent = `${updatedAt.getHours().toString().padStart(2, '0')}:${updatedAt.getMinutes()}`;
+        span.classList.add('td-text', 'td-time');
+        span.textContent = `${updatedAt.getHours().toString().padStart(2, '0')}:${minutesUpdatedAt}`;
         td.appendChild(span);
 
       // Contacts
@@ -323,7 +331,7 @@ import api from './lib/api.js'
         modalCreateUpdateClient.client.contacts.forEach((contact) => {
           addContactToModal(contact)
         })
-        modalBtnSubmit.textContent='Обновить'
+        modalBtnSubmit.textContent='Сохранить'
       } else {
 
         modalLabel.textContent = 'Новый клиент'
