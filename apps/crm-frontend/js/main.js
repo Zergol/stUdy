@@ -186,6 +186,57 @@ import api from './lib/api.js'
     }
   }
 
+  // TODO
+  // modal form validatoon
+  // function formValidation (form) {
+
+  //   function removeError(input) {
+  //     const parent = input.parentNode
+
+  //     if (parent.classList.contains('error')) {
+  //       parent.querySelector('.error-label').remove();
+  //       parent.classList.remove('error');
+  //     }
+  //   }
+
+  //   function createError(input, text) {
+  //     const parent = input.parentNode
+  //     const errorLabel = document.createElement('label');
+
+  //     errorLabel.classList.add('error-label');
+  //     errorLabel.textContent = text;
+
+  //     parent.classList.add('error');
+  //     parent.append(errorLabel);
+  //   }
+
+  //   let result = true;
+
+  //   const modalInputs = form.querySelectorAll('modal__add-input');
+
+  //   for (const input of modalInputs) {
+  //     removeError(input)
+  //     if (input.value.trim() = '') {
+  //       createError(input)
+  //     }
+  //   }
+
+  //   if (clientSurname.value.trim() == '' || clientSurname.value.trim().replace(REGEXP_PERSON_NAME, '') != '') {
+  //     createError(document.getElementById('clientSurname'), 'Введите фамилию клиента')
+  //     result = false;
+  //   }
+  //   if (clientName.value.trim() == '' || clientName.value.trim().replace(REGEXP_PERSON_NAME, '') != '') {
+  //     createError(document.getElementById('clientName'), 'Введите имя клиента')
+  //     result = false;
+  //   }
+  //   if (clientLastname.value.trim() == '' || clientLastname.value.trim().replace(REGEXP_PERSON_NAME, '') != '') {
+  //     createError(document.getElementById('clientName'), 'Введите отчество клиента')
+  //     result = false;
+  //   }
+
+  //   return result
+  // }
+
 
 // Modal functions
 
