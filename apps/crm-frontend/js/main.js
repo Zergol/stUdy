@@ -112,10 +112,8 @@ import api from './lib/api.js'
       // Created
       tr.appendChild(td = document.createElement('td'))
         createdAt = new Date(clientList[i].createdAt);
-        let mmCreatedAt = createdAt.getMonth() + 1;
-        if (mmCreatedAt < 10) mmCreatedAt = '0' + mmCreatedAt;
         td.classList.add('td__create');
-        td.textContent = `${createdAt.getDate().toString().padStart(2, '0')}.${mmCreatedAt}.${createdAt.getFullYear()}`;
+        td.textContent = `${createdAt.getDate().toString().padStart(2, '0')}.${(createdAt.getMonth() + 1).toString().padStart(2, '0')}.${createdAt.getFullYear()}`;
         span = document.createElement('span');
         span.classList.add('td-text', 'td-time');
         span.textContent = `${createdAt.getHours().toString().padStart(2, '0')}:${createdAt.getMinutes().toString().padStart(2, '0')}`;
@@ -124,10 +122,8 @@ import api from './lib/api.js'
       // Updated
       tr.appendChild(td = document.createElement('td'))
         updatedAt = new Date(clientList[i].updatedAt);
-        let mmUpdatedAt = updatedAt.getMonth() + 1;
-        if (mmUpdatedAt < 10) mmUpdatedAt = '0' + mmUpdatedAt;
         td.classList.add('td__create');
-        td.textContent = `${updatedAt.getDate().toString().padStart(2, '0')}.${mmUpdatedAt}.${updatedAt.getFullYear()}`;
+        td.textContent = `${updatedAt.getDate().toString().padStart(2, '0')}.${(updatedAt.getMonth() + 1).toString().padStart(2, '0')}.${updatedAt.getFullYear()}`;
         span = document.createElement('span');
         span.classList.add('td-text', 'td-time');
         span.textContent = `${updatedAt.getHours().toString().padStart(2, '0')}:${updatedAt.getMinutes().toString().padStart(2, '0')}`;
@@ -158,6 +154,11 @@ import api from './lib/api.js'
               break;
           }
           td.appendChild(svgContact);
+          // tippy(id, {
+          //   theme: 'tooltipTheme',
+          //   content: `<strong>${clientList[i].contacts[j].type}:</strong> ${clientList[i].contacts[j].value}`,
+          //   allowHTML: true
+          // });
         }
 
         tr.appendChild(td = document.createElement('td'))
@@ -369,7 +370,7 @@ import api from './lib/api.js'
       if (modalCreateUpdateClient.client) {
         modalLabel.textContent = 'Изменить данные';
 
-        clientId.textContent = modalCreateUpdateClient.client.id;
+        clientId.textContent = 'ID:' + modalCreateUpdateClient.client.id;
 
         clientSurname.value = modalCreateUpdateClient.client.surname;
         clientName.value = modalCreateUpdateClient.client.name;
