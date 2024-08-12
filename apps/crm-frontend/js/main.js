@@ -153,12 +153,12 @@ import api from './lib/api.js'
               svgContact.src = 'img/contacts/human.svg';
               break;
           }
-          td.appendChild(svgContact);
           // tippy(id, {
           //   theme: 'tooltipTheme',
           //   content: `<strong>${clientList[i].contacts[j].type}:</strong> ${clientList[i].contacts[j].value}`,
           //   allowHTML: true
           // });
+          td.appendChild(svgContact);
         }
 
         tr.appendChild(td = document.createElement('td'))
@@ -185,31 +185,31 @@ import api from './lib/api.js'
 
   // TODO:
   // modal form validatoon
+  // function removeError(input) {
+  //   const parent = input.parentNode
+
+  //   if (parent.classList.contains('error')) {
+  //     parent.querySelector('.error-label').remove();
+  //     parent.classList.remove('error');
+  //   }
+  // }
+
+  // function createError(input, text) {
+  //   const parent = input.parentNode
+  //   const errorLabel = document.createElement('label');
+
+  //   errorLabel.classList.add('error-label');
+  //   errorLabel.textContent = text;
+
+  //   parent.classList.add('error');
+  //   parent.append(errorLabel);
+  // }
+
   // function formValidation (form) {
-
-  //   function removeError(input) {
-  //     const parent = input.parentNode
-
-  //     if (parent.classList.contains('error')) {
-  //       parent.querySelector('.error-label').remove();
-  //       parent.classList.remove('error');
-  //     }
-  //   }
-
-  //   function createError(input, text) {
-  //     const parent = input.parentNode
-  //     const errorLabel = document.createElement('label');
-
-  //     errorLabel.classList.add('error-label');
-  //     errorLabel.textContent = text;
-
-  //     parent.classList.add('error');
-  //     parent.append(errorLabel);
-  //   }
 
   //   let result = true;
 
-  //   const modalInputs = form.querySelectorAll('modal__add-input');
+  //   const modalInputs = form.querySelectorAll('.modal__add-input');
 
   //   for (const input of modalInputs) {
   //     removeError(input)
