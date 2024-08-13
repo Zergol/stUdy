@@ -23,6 +23,8 @@ import api from './lib/api.js'
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
   const REGEXP_PERSON_NAME = /(^[A-Z]{1}[a-z]{1,50}$)|(^[А-Я]{1}[а-я]{1,50}$)/;
+  const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+  const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
 
   const optionItems = [
     {type: 'phone', value: 'Телефон'},
@@ -91,36 +93,36 @@ import api from './lib/api.js'
 
   // FIXME: tippy is not work "why?"
   // creat ToolTip
-  function addToolTip(clientList) {
-    for (let i = 0; i < clientList.length; i++) {
-      for (let j = 0; j < clientList[i].contacts.length; j++) {
-        let id = '#';
-        switch (clientList[i].contacts[j].type) {
-          case 'Телефон':
-            id += 'phone' + i + j;
-            break;
-          case 'Email':
-            id += 'email' + i + j;
-            break;
-          case 'VK':
-            id += 'vk' + i +j;
-            break;
-          case 'Facebook':
-            id += 'fb' + i + j;
-            break;
-          default:
-            id += 'other' + i + j;
-            break;
-        }
+  // function addToolTip(clientList) {
+  //   for (let i = 0; i < clientList.length; i++) {
+  //     for (let j = 0; j < clientList[i].contacts.length; j++) {
+  //       let id = '#';
+  //       switch (clientList[i].contacts[j].type) {
+  //         case 'Телефон':
+  //           id += 'phone' + i + j;
+  //           break;
+  //         case 'Email':
+  //           id += 'email' + i + j;
+  //           break;
+  //         case 'VK':
+  //           id += 'vk' + i +j;
+  //           break;
+  //         case 'Facebook':
+  //           id += 'fb' + i + j;
+  //           break;
+  //         default:
+  //           id += 'other' + i + j;
+  //           break;
+  //       }
 
-        tippy(id, {
-          theme: 'tooltipTheme',
-          content: `<strong>${clientList[i].contacts[j].type}:</strong> ${clientList[i].contacts[j].value}`,
-          allowHTML: true
-        });
-      }
-    }
-  }
+  //       tippy(id, {
+  //         theme: 'tooltipTheme',
+  //         content: `<strong>${clientList[i].contacts[j].type}:</strong> ${clientList[i].contacts[j].value}`,
+  //         allowHTML: true
+  //       });
+  //     }
+  //   }
+  // }
 
   function drawTable() {
 
@@ -168,6 +170,9 @@ import api from './lib/api.js'
         for(let j=0; j < clientList[i].contacts.length; j++) {
           const svgContact = document.createElement('img');
           svgContact.classList.add('tbody__td-img');
+          svgContact.setAttribute('data-bs-toggle', 'tooltip');
+          svgContact.setAttribute('data-bs-placement', 'top');
+          svgContact.setAttribute('data-bs-title', 'Подсказка вверху');
           svgContact.alt = 'contact icon';
           switch (clientList[i].contacts[j].type) {
             case 'Телефон':
@@ -211,7 +216,7 @@ import api from './lib/api.js'
       clients.appendChild(tr);
     }
 
-    addToolTip(clientList);
+    // addToolTip(clientList);
   }
 
   // TODO:
