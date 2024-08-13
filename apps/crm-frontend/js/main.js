@@ -89,6 +89,7 @@ import api from './lib/api.js'
     clients.replaceChildren();
   }
 
+  // FIXME: tippy is not work "why?"
   // creat ToolTip
   function addToolTip(clientList) {
     for (let i = 0; i < clientList.length; i++) {
