@@ -89,6 +89,38 @@ import api from './lib/api.js'
     clients.replaceChildren();
   }
 
+  // creat ToolTip
+  function addToolTip(clientList) {
+    for (let i = 0; i < clientList.length; i++) {
+      for (let j = 0; j < clientList[i].contacts.length; j++) {
+        let id = '#';
+        switch (clientList[i].contacts[j].type) {
+          case 'Телефон':
+            id += 'phone' + i + j;
+            break;
+          case 'Email':
+            id += 'email' + i + j;
+            break;
+          case 'VK':
+            id += 'vk' + i +j;
+            break;
+          case 'Facebook':
+            id += 'fb' + i + j;
+            break;
+          default:
+            id += 'other' + i + j;
+            break;
+        }
+
+        tippy(id, {
+          theme: 'tooltipTheme',
+          content: `<strong>${clientList[i].contacts[j].type}:</strong> ${clientList[i].contacts[j].value}`,
+          allowHTML: true
+        });
+      }
+    }
+  }
+
   function drawTable() {
 
     let clients = document.getElementById('clientList');
@@ -153,11 +185,7 @@ import api from './lib/api.js'
               svgContact.src = 'img/contacts/human.svg';
               break;
           }
-          // tippy(id, {
-          //   theme: 'tooltipTheme',
-          //   content: `<strong>${clientList[i].contacts[j].type}:</strong> ${clientList[i].contacts[j].value}`,
-          //   allowHTML: true
-          // });
+          
           td.appendChild(svgContact);
         }
 
@@ -181,6 +209,8 @@ import api from './lib/api.js'
 
       clients.appendChild(tr);
     }
+
+    addToolTip(clientList);
   }
 
   // TODO:
@@ -370,7 +400,7 @@ import api from './lib/api.js'
       if (modalCreateUpdateClient.client) {
         modalLabel.textContent = 'Изменить данные';
 
-        clientId.textContent = 'ID:' + modalCreateUpdateClient.client.id;
+        clientId.textContent = modalCreateUpdateClient.client.id;
 
         clientSurname.value = modalCreateUpdateClient.client.surname;
         clientName.value = modalCreateUpdateClient.client.name;
