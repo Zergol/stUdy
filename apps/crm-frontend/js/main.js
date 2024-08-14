@@ -154,14 +154,14 @@ import api from './lib/api.js'
               break;
           }
           
+          td.appendChild(svgContact);
+          
           tippy(svgContact, {
             theme: 'tooltipTheme',
             delay: 90,
             content: `<strong>${clientList[i].contacts[j].type}:</strong> ${clientList[i].contacts[j].value}`,
             allowHTML: true
           });
-
-          td.appendChild(svgContact);
         }
 
         tr.appendChild(td = document.createElement('td'))
@@ -186,7 +186,7 @@ import api from './lib/api.js'
     }
   }
 
-  // TODO:
+  // TODO: modal form validation
   // modal form validatoon
   // function removeError(input) {
   //   const parent = input.parentNode
