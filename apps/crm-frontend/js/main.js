@@ -156,6 +156,7 @@ import api from './lib/api.js'
           
           tippy(svgContact, {
             theme: 'tooltipTheme',
+            delay: 90,
             content: `<strong>${clientList[i].contacts[j].type}:</strong> ${clientList[i].contacts[j].value}`,
             allowHTML: true
           });
