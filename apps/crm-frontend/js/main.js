@@ -193,63 +193,64 @@ import api from './lib/api.js'
         marginTop -= 60;
         mainBtnAdd.style = `margin-top: ${marginTop}px`
       } 
-      if ( i > 6) {
-        marginTop += 80;
+      if ( i > 5) {
+        marginTop += 60;
         mainBtnAdd.style = `margin-top: ${marginTop}px`
       }
     }
   }
 
-  // TODO: modal form validation
+  // FIXME: modal form validation; removeError() is not delete '.error'-class from parent.classList 
   // modal form validatoon
-  // function removeError(input) {
-  //   const parent = input.parentNode
 
-  //   if (parent.classList.contains('error')) {
-  //     parent.querySelector('.error-label').remove();
-  //     parent.classList.remove('error');
-  //   }
-  // }
+  function formValidation () {
 
-  // function createError(input, text) {
-  //   const parent = input.parentNode
-  //   const errorLabel = document.createElement('label');
+    function removeError(input) {
+      const parent = input.parentNode
+  
+      if (parent.classList.contains('error')) {
+        parent.querySelector('.error-label').remove();
+        parent.classList.remove('error');
+      }
+    }
+  
+    function createError(input, text) {
+      const parent = input.parentNode
+      const errorLabel = document.createElement('label');
+  
+      errorLabel.classList.add('error-label');
+      errorLabel.textContent = text;
+  
+      parent.classList.add('error');
+      parent.append(errorLabel);
+    }
 
-  //   errorLabel.classList.add('error-label');
-  //   errorLabel.textContent = text;
+    let result = true;
 
-  //   parent.classList.add('error');
-  //   parent.append(errorLabel);
-  // }
+    const modalInputs = document.getElementsByClassName('.modal__add-input');
 
-  // function formValidation (form) {
+    for (const input of modalInputs) {
+      removeError(input)
+      if (input.value.trim() = '') {
+        createError(input)
+      }
+    }
 
-  //   let result = true;
+    if (clientSurname.value.trim() == '' || clientSurname.value.trim().replace(REGEXP_PERSON_NAME, '') != '') {
+      createError(document.getElementById('clientSurname'), 'Введите фамилию клиента')
+      result = false;
+    }
+    if (clientName.value.trim() == '' || clientName.value.trim().replace(REGEXP_PERSON_NAME, '') != '') {
+      createError(document.getElementById('clientName'), 'Введите имя клиента')
+      result = false;
+    }
+    if (clientLastname.value.trim() == '' || clientLastname.value.trim().replace(REGEXP_PERSON_NAME, '') != '') {
+      createError(document.getElementById('clientLastname'), 'Введите отчество клиента')
+      result = false;
+    }
 
-  //   const modalInputs = form.querySelectorAll('.modal__add-input');
-
-  //   for (const input of modalInputs) {
-  //     removeError(input)
-  //     if (input.value.trim() = '') {
-  //       createError(input)
-  //     }
-  //   }
-
-  //   if (clientSurname.value.trim() == '' || clientSurname.value.trim().replace(REGEXP_PERSON_NAME, '') != '') {
-  //     createError(document.getElementById('clientSurname'), 'Введите фамилию клиента')
-  //     result = false;
-  //   }
-  //   if (clientName.value.trim() == '' || clientName.value.trim().replace(REGEXP_PERSON_NAME, '') != '') {
-  //     createError(document.getElementById('clientName'), 'Введите имя клиента')
-  //     result = false;
-  //   }
-  //   if (clientLastname.value.trim() == '' || clientLastname.value.trim().replace(REGEXP_PERSON_NAME, '') != '') {
-  //     createError(document.getElementById('clientName'), 'Введите отчество клиента')
-  //     result = false;
-  //   }
-
-  //   return result
-  // }
+    return result
+  }
 
 
 // Modal functions
@@ -410,28 +411,32 @@ import api from './lib/api.js'
     })
 
     modalBtnSubmit.addEventListener("click", (e) => {
-      if (modalCreateUpdateClient.client?.id) {
-        api.updateClient({
-          id: clientId.textContent,
-          surname: clientSurname.value,
-          name: clientName.value,
-          lastName: clientLastname.value,
-          contacts: getContactsFromModal(),
-        }, (data) => {
-          console.log("Client was succesfully updated", data);
-          modalCreateUpdateClient.hide();
-        })
-      } else {
-        api.createClient({
-          surname: clientSurname.value,
-          name: clientName.value,
-          lastName: clientLastname.value,
-          contacts: getContactsFromModal(),
-        }, (data) => {
-          console.log("Client was succesfully created", data);
-          modalCreateUpdateClient.hide();
-        })
+      if (formValidation()) {
+        if (modalCreateUpdateClient.client?.id) {
+          api.updateClient({
+            id: clientId.textContent,
+            surname: clientSurname.value,
+            name: clientName.value,
+            lastName: clientLastname.value,
+            contacts: getContactsFromModal(),
+          }, (data) => {
+            console.log("Client was succesfully updated", data);
+            modalCreateUpdateClient.hide();
+          })
+        } else {
+          api.createClient({
+            surname: clientSurname.value,
+            name: clientName.value,
+            lastName: clientLastname.value,
+            contacts: getContactsFromModal(),
+          }, (data) => {
+            console.log("Client was succesfully created", data);
+            modalCreateUpdateClient.hide();
+          })
+        }
       }
+
+      
     });
 
     modalDeleteClientBtnSubmit.addEventListener("click", (e) => {

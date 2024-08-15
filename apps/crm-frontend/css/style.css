@@ -664,6 +664,7 @@ img {
 
 .add__form-input {
   display: flex;
+  width: 390px;
   margin-top: 15px;
   margin-bottom: 15px;
   justify-content: center;
