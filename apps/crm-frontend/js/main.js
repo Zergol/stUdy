@@ -89,7 +89,11 @@ import api from './lib/api.js'
     clients.replaceChildren();
   }
 
+  // Draw Table
   function drawTable() {
+    // Add margin-top to Modal-button
+    const mainBtnAdd = document.querySelector('.main__btn-container');
+    let marginTop = 340;
 
     let clients = document.getElementById('clientList');
 
@@ -183,6 +187,16 @@ import api from './lib/api.js'
         td.appendChild(btnDeleteClient);
 
       clients.appendChild(tr);
+
+      // Add margin-top to Modal-button
+      if (i > 0) {
+        marginTop -= 60;
+        mainBtnAdd.style = `margin-top: ${marginTop}px`
+      } 
+      if ( i > 6) {
+        marginTop += 80;
+        mainBtnAdd.style = `margin-top: ${marginTop}px`
+      }
     }
   }
 
