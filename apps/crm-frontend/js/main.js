@@ -200,8 +200,7 @@ import api from './lib/api.js'
     }
   }
 
-  // FIXME: modal form validation; removeError() is not delete '.error'-class from parent.classList 
-  // modal form validatoon
+  // Modal Form Validatoon
 
   function formValidation () {
 
@@ -227,9 +226,9 @@ import api from './lib/api.js'
 
     let result = true;
 
-    const modalInputs = document.getElementsByClassName('.modal__add-input');
+    const modalAddInput = document.getElementsByClassName('.modal__add-input');
 
-    for (const input of modalInputs) {
+    for (const input of modalAddInput) {
       removeError(input)
       if (input.value.trim() = '') {
         createError(input)
@@ -239,14 +238,20 @@ import api from './lib/api.js'
     if (clientSurname.value.trim() == '' || clientSurname.value.trim().replace(REGEXP_PERSON_NAME, '') != '') {
       createError(document.getElementById('clientSurname'), 'Введите фамилию клиента')
       result = false;
+    } else {
+      removeError(document.getElementById('clientSurname'))
     }
     if (clientName.value.trim() == '' || clientName.value.trim().replace(REGEXP_PERSON_NAME, '') != '') {
       createError(document.getElementById('clientName'), 'Введите имя клиента')
       result = false;
+    } else {
+      removeError(document.getElementById('clientName'))
     }
     if (clientLastname.value.trim() == '' || clientLastname.value.trim().replace(REGEXP_PERSON_NAME, '') != '') {
       createError(document.getElementById('clientLastname'), 'Введите отчество клиента')
       result = false;
+    } else {
+      removeError(document.getElementById('clientLastname'))
     }
 
     return result
@@ -399,7 +404,6 @@ import api from './lib/api.js'
         })
         modalBtnSubmit.textContent='Сохранить'
       } else {
-
         modalLabel.textContent = 'Новый клиент'
         clientId.textContent = '';
         clientSurname.value = '';
