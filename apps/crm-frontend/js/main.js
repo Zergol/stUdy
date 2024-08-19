@@ -258,7 +258,15 @@ import api from './lib/api.js'
   }
 
 
-// Modal functions
+  // TODO: Doing the Table Sorting
+  // Table Sorting
+
+  function tableSort(id, typeSort, clientList) {
+
+  }
+
+
+  // Modal functions
 
   function showCreateUpdateModal(client) {
     modalCreateUpdateClient.client = client
