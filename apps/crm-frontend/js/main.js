@@ -51,6 +51,10 @@ import api from './lib/api.js'
   let modalBtnAddContact;
   let modalBtnSubmit;
 
+  let sortArray;
+  let sortedClientList;
+  let typeSort;
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // Functions
@@ -261,9 +265,68 @@ import api from './lib/api.js'
   // TODO: Doing the Table Sorting
   // Table Sorting
 
-  function tableSort(id, typeSort, clientList) {
 
+  function tableSort (id, typeSort, clientList) {
+    let sortArray = [];
+    let sortedClientList = [];
+    switch (id) {
+      case 0:
+        clientList.forEach(client => sortArray.push(client.id));
+        typeSort ? sortArray.sort() : sortArray.sort((a, b) => b - a);
+        for (let i = 0; i < clientList.length; ++i) {
+          clientList.forEach(client => {
+            if (client.id === sortArray[i]) {
+              sortedClientList.push(client);
+            }
+          });
+        }
+        clearTable();
+        drawTable(sortedClientList);
+        break;
+      case 1:
+        clientList.forEach(client => sortArray.push(client.surname + client.name + client.lastname));
+        typeSort ? sortArray.sort() : sortArray.sort().reverse();
+        for (let i = 0; i < clientList.length; ++i) {
+          clientList.forEach(client => {
+            if (sortArray[i].includes(client.surname) && sortArray[i].includes(client.name) && sortArray[i].includes(client.lastname)) {
+              sortedClientList.push(client);
+            }
+          });
+        }
+        clearTable();
+        drawTable(sortedClientList);
+        break;
+      case 2:
+        clientList.forEach(client => sortArray.push(new Date(client.createdAt)));
+        typeSort ? sortArray.sort((a, b) => a.getTime() - b.getTime()) : sortArray.sort((a, b) => b.getTime() - a.getTime());
+        for (let i = 0; i < clientList.length; ++i) {
+          clientList.forEach(client => {
+            if (new Date(client.createdAt).getTime() === sortArray[i].getTime()) {
+              sortedClientList.push(client);
+            }
+          });
+        }
+        clearTable();
+        drawTable(sortedClientList);
+        break;
+      case 3:
+        clientList.forEach(client => sortArray.push(new Date(client.updatedAt)));
+        typeSort ? sortArray.sort((a, b) => a.getTime() - b.getTime()) : sortArray.sort((a, b) => b.getTime() - a.getTime());
+        for (let i = 0; i < clientList.length; ++i) {
+          clientList.forEach(client => {
+            if (new Date(client.updatedAt).getTime() === sortArray[i].getTime()) {
+              sortedClientList.push(client);
+            }
+          });
+        }
+        clearTable();
+        drawTable(sortedClientList);
+        break;
+      default:
+        break;
+    }
   }
+
 
 
   // Modal functions
@@ -466,6 +529,54 @@ import api from './lib/api.js'
         "value": ""
       })
     });
+
+
+    // Sort Arrows + Default Value Activate
+
+    const theadTd = document.querySelectorAll('.table__thead-td span');
+    let typeSort = [true, false, false, false];
+    for (let i = 0; i < 4; ++i) {
+      theadTd[i].addEventListener('click', () => {
+        const classNames = [{first: 'active-up', second: 'active-up-fio'},
+                            {first: 'active-down', second: 'active-down-fio'}];
+        for (let j = 0; j < 4; ++j) {
+          if (j === 1) {
+            if (theadTd[j].classList.contains(classNames[0].second)) {
+              theadTd[j].classList.remove(classNames[0].second);
+            }
+            if (theadTd[j].classList.contains(classNames[1].second)) {
+              theadTd[j].classList.remove(classNames[1].second);
+            }
+          } else {
+            if (theadTd[j].classList.contains(classNames[0].first)) {
+              theadTd[j].classList.remove(classNames[0].first);
+            }
+            if (theadTd[j].classList.contains(classNames[1].first)) {
+              theadTd[j].classList.remove(classNames[1].first);
+            }
+          }
+        }
+        if (i === 1) {
+          if (typeSort[i]) {
+            theadTd[i].classList.add(classNames[1].second);
+            typeSort[i] = false;
+          } else {
+            theadTd[i].classList.add(classNames[0].second);
+            typeSort[i] = true;
+          }
+        } else {
+          if (typeSort[i]) {
+            theadTd[i].classList.add(classNames[1].first);
+            typeSort[i] = false;
+          } else {
+            theadTd[i].classList.add(classNames[0].first);
+            typeSort[i] = true;
+          }
+        }
+
+        tableSort();
+      })
+    }
 
   });
 })();
