@@ -51,8 +51,8 @@ import api from './lib/api.js'
   let modalBtnAddContact;
   let modalBtnSubmit;
 
-  let sortArray;
-  let sortedClientList;
+  let sortArray = [];
+  let sortedClientList = [];
   let typeSort;
 
 
@@ -267,8 +267,8 @@ import api from './lib/api.js'
 
 
   function tableSort (id, typeSort, clientList) {
-    let sortArray = [];
-    let sortedClientList = [];
+    // let sortArray = [];
+    // let sortedClientList = [];
     switch (id) {
       case 0:
         clientList.forEach(client => sortArray.push(client.id));
@@ -325,8 +325,8 @@ import api from './lib/api.js'
       default:
         break;
     }
+    console.log(sortedClientList);
   }
-
 
 
   // Modal functions
