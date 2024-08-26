@@ -79,8 +79,8 @@ import api from './lib/api.js'
         clientList = data;
         console.log('Got new client list:', clientList);
         clearTable();
-        tableSort();
         drawTable();
+        tableSort();
       } else {
         console.log('Data is not changed...');
       }
