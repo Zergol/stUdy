@@ -79,6 +79,7 @@ import api from './lib/api.js'
         clientList = data;
         console.log('Got new client list:', clientList);
         clearTable();
+        tableSort();
         drawTable();
       } else {
         console.log('Data is not changed...');
@@ -265,7 +266,6 @@ import api from './lib/api.js'
   // TODO: Doing the Table Sorting
   // Table Sorting
 
-
   function tableSort (id, typeSort, clientList) {
     // let sortArray = [];
     // let sortedClientList = [];
@@ -325,7 +325,9 @@ import api from './lib/api.js'
       default:
         break;
     }
-    console.log(sortedClientList);
+    return (sortedClientList)
+
+    // console.log(sortedClientList);
   }
 
 
