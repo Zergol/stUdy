@@ -51,6 +51,9 @@ import api from './lib/api.js'
   let modalBtnAddContact;
   let modalBtnSubmit;
 
+  let sortAttribute = 'name';
+  let sortNormalOrder = true;
+
   let sortArray = [];
   let sortedClientList = [];
   let typeSort;
@@ -266,69 +269,73 @@ import api from './lib/api.js'
   // TODO: Doing the Table Sorting
   // Table Sorting
 
-  function tableSort (id, typeSort, clientList) {
-    // let sortArray = [];
-    // let sortedClientList = [];
-    switch (id) {
-      case 0:
-        clientList.forEach(client => sortArray.push(client.id));
-        typeSort ? sortArray.sort() : sortArray.sort((a, b) => b - a);
-        for (let i = 0; i < clientList.length; ++i) {
-          clientList.forEach(client => {
-            if (client.id === sortArray[i]) {
-              sortedClientList.push(client);
-            }
-          });
-        }
-        clearTable();
-        drawTable(sortedClientList);
-        break;
-      case 1:
-        clientList.forEach(client => sortArray.push(client.surname + client.name + client.lastname));
-        typeSort ? sortArray.sort() : sortArray.sort().reverse();
-        for (let i = 0; i < clientList.length; ++i) {
-          clientList.forEach(client => {
-            if (sortArray[i].includes(client.surname) && sortArray[i].includes(client.name) && sortArray[i].includes(client.lastname)) {
-              sortedClientList.push(client);
-            }
-          });
-        }
-        clearTable();
-        drawTable(sortedClientList);
-        break;
-      case 2:
-        clientList.forEach(client => sortArray.push(new Date(client.createdAt)));
-        typeSort ? sortArray.sort((a, b) => a.getTime() - b.getTime()) : sortArray.sort((a, b) => b.getTime() - a.getTime());
-        for (let i = 0; i < clientList.length; ++i) {
-          clientList.forEach(client => {
-            if (new Date(client.createdAt).getTime() === sortArray[i].getTime()) {
-              sortedClientList.push(client);
-            }
-          });
-        }
-        clearTable();
-        drawTable(sortedClientList);
-        break;
-      case 3:
-        clientList.forEach(client => sortArray.push(new Date(client.updatedAt)));
-        typeSort ? sortArray.sort((a, b) => a.getTime() - b.getTime()) : sortArray.sort((a, b) => b.getTime() - a.getTime());
-        for (let i = 0; i < clientList.length; ++i) {
-          clientList.forEach(client => {
-            if (new Date(client.updatedAt).getTime() === sortArray[i].getTime()) {
-              sortedClientList.push(client);
-            }
-          });
-        }
-        clearTable();
-        drawTable(sortedClientList);
-        break;
-      default:
-        break;
-    }
-    return (sortedClientList)
-
-    // console.log(sortedClientList);
+  function tableSort (sortAttribute, sortNormalOrder) {
+    clientList = clientList.sort((a, b) => sortNormalOrder ? a[sortAttribute] > b[sortAttribute] : a[sortAttribute] < b[sortAttribute])
   }
+
+  // function tableSort (id, typeSort, clientList) {
+  //   // let sortArray = [];
+  //   // let sortedClientList = [];
+  //   switch (id) {
+  //     case 0:
+  //       clientList.forEach(client => sortArray.push(client.id));
+  //       typeSort ? sortArray.sort() : sortArray.sort((a, b) => b - a);
+  //       for (let i = 0; i < clientList.length; ++i) {
+  //         clientList.forEach(client => {
+  //           if (client.id === sortArray[i]) {
+  //             sortedClientList.push(client);
+  //           }
+  //         });
+  //       }
+  //       clearTable();
+  //       drawTable(sortedClientList);
+  //       break;
+  //     case 1:
+  //       clientList.forEach(client => sortArray.push(client.surname + client.name + client.lastname));
+  //       typeSort ? sortArray.sort() : sortArray.sort().reverse();
+  //       for (let i = 0; i < clientList.length; ++i) {
+  //         clientList.forEach(client => {
+  //           if (sortArray[i].includes(client.surname) && sortArray[i].includes(client.name) && sortArray[i].includes(client.lastname)) {
+  //             sortedClientList.push(client);
+  //           }
+  //         });
+  //       }
+  //       clearTable();
+  //       drawTable(sortedClientList);
+  //       break;
+  //     case 2:
+  //       clientList.forEach(client => sortArray.push(new Date(client.createdAt)));
+  //       typeSort ? sortArray.sort((a, b) => a.getTime() - b.getTime()) : sortArray.sort((a, b) => b.getTime() - a.getTime());
+  //       for (let i = 0; i < clientList.length; ++i) {
+  //         clientList.forEach(client => {
+  //           if (new Date(client.createdAt).getTime() === sortArray[i].getTime()) {
+  //             sortedClientList.push(client);
+  //           }
+  //         });
+  //       }
+  //       clearTable();
+  //       drawTable(sortedClientList);
+  //       break;
+  //     case 3:
+  //       clientList.forEach(client => sortArray.push(new Date(client.updatedAt)));
+  //       typeSort ? sortArray.sort((a, b) => a.getTime() - b.getTime()) : sortArray.sort((a, b) => b.getTime() - a.getTime());
+  //       for (let i = 0; i < clientList.length; ++i) {
+  //         clientList.forEach(client => {
+  //           if (new Date(client.updatedAt).getTime() === sortArray[i].getTime()) {
+  //             sortedClientList.push(client);
+  //           }
+  //         });
+  //       }
+  //       clearTable();
+  //       drawTable(sortedClientList);
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  //   return (sortedClientList)
+
+  //   // console.log(sortedClientList);
+  // }
 
 
   // Modal functions
@@ -576,7 +583,7 @@ import api from './lib/api.js'
           }
         }
 
-        tableSort();
+        tableSort(sortAttribute, sortNormalOrder);
       })
     }
 
