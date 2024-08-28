@@ -204,6 +204,7 @@ import api from './lib/api.js'
         mainBtnAdd.style = `margin-top: ${marginTop}px`
       }
     }
+    tableSort(sortAttribute, sortNormalOrder);
   }
 
   // Modal Form Validatoon
@@ -270,7 +271,6 @@ import api from './lib/api.js'
   function tableSort (attribute, normalOrder) {
     clientList = clientList.sort((a, b) => normalOrder ? a[attribute] > b[attribute] : a[attribute] < b[attribute])
   }
-
 
   // Modal functions
 
@@ -517,7 +517,7 @@ import api from './lib/api.js'
           }
         }
 
-        tableSort();
+        tableSort(sortAttribute, sortNormalOrder);
       })
     }
 
