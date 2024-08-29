@@ -43,12 +43,12 @@
       <div class="table__area">
         <table class="main__table">
           <thead class="main__table-thead">
-            <th data-column="id" class="table__thead-td thead-td-active"><span class="thead-id active-up">ID</span></th>
-            <th data-column="fio" class="table__thead-td thead-td-active"><span class="thead-fio">Фамилия Имя Отчество</span></th>
-            <th data-column="createdAt" class="table__thead-td thead-td-active"><span class="thead-create">Дата и время создания</span></th>
-            <th data-column="updatedAt" class="table__thead-td thead-td-active"><span class="thead-change">Последние изменения</span></th>
-            <th data-column="contacts" class="table__thead-td"><span class="thead-contacts">Контакты</span></th>
-            <th data-column="actions" class="table__thead-td"><span class="thead-actions">Действия</span></th>
+            <th class="table__thead-td table-sortable thead-td-active"><span data-attribute="id"  class="thead-id active-up">ID</span></th>
+            <th class="table__thead-td table-sortable thead-td-active"><span data-attribute="name" class="thead-fio">Фамилия Имя Отчество</span></th>
+            <th class="table__thead-td table-sortable thead-td-active"><span data-attribute="createdAt" class="thead-create">Дата и время создания</span></th>
+            <th class="table__thead-td table-sortable thead-td-active"><span data-attribute="updatedAt" class="thead-change">Последние изменения</span></th>
+            <th class="table__thead-td"><span class="thead-contacts">Контакты</span></th>
+            <th class="table__thead-td"><span class="thead-actions">Действия</span></th>
           </thead>
           <tbody class="main__table-tbody" id="clientList">
           </tbody>
@@ -143,13 +143,14 @@
                 </ul>
               </div>
             </div>
-          </div><input class="select__input edit" type="text" placeholder="Введите данные контакта"><button
-            class="select__input-btn" type="button" id="select__input-delete" style="display: block;"><svg
-              class="select__input-btn-arrow" viewBox="0 0 12 12" width="12" height="12" fill="none">
-              <path
-                d="M6 0C2.682 0 0 2.682 0 6C0 9.318 2.682 12 6 12C9.318 12 12 9.318 12 6C12 2.682 9.318 0 6 0ZM6 10.8C3.354 10.8 1.2 8.646 1.2 6C1.2 3.354 3.354 1.2 6 1.2C8.646 1.2 10.8 3.354 10.8 6C10.8 8.646 8.646 10.8 6 10.8ZM8.154 3L6 5.154L3.846 3L3 3.846L5.154 6L3 8.154L3.846 9L6 6.846L8.154 9L9 8.154L6.846 6L9 3.846L8.154 3Z"
+          </div>
+            <input class="select__input edit" type="text" placeholder="Введите данные контакта">
+            <button class="select__input-btn" type="button" id="select__input-delete" style="display: block;">
+              <svg class="select__input-btn-arrow" viewBox="0 0 12 12" width="12" height="12" fill="none">
+                <path d="M6 0C2.682 0 0 2.682 0 6C0 9.318 2.682 12 6 12C9.318 12 12 9.318 12 6C12 2.682 9.318 0 6 0ZM6 10.8C3.354 10.8 1.2 8.646 1.2 6C1.2 3.354 3.354 1.2 6 1.2C8.646 1.2 10.8 3.354 10.8 6C10.8 8.646 8.646 10.8 6 10.8ZM8.154 3L6 5.154L3.846 3L3 3.846L5.154 6L3 8.154L3.846 9L6 6.846L8.154 9L9 8.154L6.846 6L9 3.846L8.154 3Z"
                 fill="#B0B0B0"></path>
-            </svg></button>
+              </svg>
+            </button>
         </div>
       </div>  
 
