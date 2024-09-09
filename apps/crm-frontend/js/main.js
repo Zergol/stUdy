@@ -24,7 +24,7 @@ import api from './lib/api.js'
 
   const REGEXP_PERSON_NAME = /(^[A-Z]{1}[a-z]{1,50}$)|(^[А-Я]{1}[а-я]{1,50}$)/;
 
-  const POLL_INTERVAL = 60000;
+  const POLL_INTERVAL = 5000;
 
   const optionItems = [
     {type: 'phone', value: 'Телефон'},
@@ -57,7 +57,6 @@ import api from './lib/api.js'
   let sortNormalOrder = true;
 
   let typeSort;
-
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // Functions
@@ -101,6 +100,12 @@ import api from './lib/api.js'
   function sortTable (attribute, normalOrder) {
     clientList = clientList.sort((a, b) => (normalOrder ? a[attribute] > b[attribute] : a[attribute] < b[attribute]) ? 1 : -1)
   }
+
+  // TODO: Doing the Searching
+  //  Searching
+  function searchTable () {
+
+  } 
 
   // Draw Table
   function drawTable() {
@@ -485,11 +490,55 @@ import api from './lib/api.js'
           sortNormalOrder ^= true;
         }
         sortAttribute = newAttribute;
-        e.target.classList.toggle('active-up', sortNormalOrder);
-        e.target.classList.toggle('active-down', !sortNormalOrder);
+        // e.target.classList.toggle('active-up', sortNormalOrder);
+        // e.target.classList.toggle('active-down', !sortNormalOrder);
         drawTable();
       });
     });
+
+    const theadTd = document.querySelectorAll('.table__thead-td span');
+    let typeSort = [true, false, false, false];
+    for (let i = 0; i < 4; ++i) {
+      theadTd[i].addEventListener('click', () => {
+        const classNames = [{first: 'active-up', second: 'active-up-fio'},
+                            {first: 'active-down', second: 'active-down-fio'}];
+        for (let j = 0; j < 4; ++j) {
+          if (j === 1) {
+            if (theadTd[j].classList.contains(classNames[0].second)) {
+              theadTd[j].classList.remove(classNames[0].second);
+            }
+            if (theadTd[j].classList.contains(classNames[1].second)) {
+              theadTd[j].classList.remove(classNames[1].second);
+            }
+          } else {
+            if (theadTd[j].classList.contains(classNames[0].first)) {
+              theadTd[j].classList.remove(classNames[0].first);
+            }
+            if (theadTd[j].classList.contains(classNames[1].first)) {
+              theadTd[j].classList.remove(classNames[1].first);
+            }
+          }
+        }
+        if (i === 1) {
+          if (typeSort[i]) {
+            theadTd[i].classList.add(classNames[1].second);
+            typeSort[i] = false;
+          } else {
+            theadTd[i].classList.add(classNames[0].second);
+            typeSort[i] = true;
+          }
+        } else {
+          if (typeSort[i]) {
+            theadTd[i].classList.add(classNames[1].first);
+            typeSort[i] = false;
+          } else {
+            theadTd[i].classList.add(classNames[0].first);
+            typeSort[i] = true;
+          }
+        }
+
+      });
+    };
 
   });
 })();
