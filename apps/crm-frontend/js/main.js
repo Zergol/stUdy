@@ -94,9 +94,7 @@ import api from './lib/api.js'
     clients.replaceChildren();
   }
 
-  // TODO: Doing the Table Sorting
   // Table Sorting
-
   function sortTable (attribute, normalOrder) {
     clientList = clientList.sort((a, b) => (normalOrder ? a[attribute] > b[attribute] : a[attribute] < b[attribute]) ? 1 : -1)
   }
@@ -461,7 +459,6 @@ import api from './lib/api.js'
         }
       }
 
-      
     });
 
     modalDeleteClientBtnSubmit.addEventListener("click", (e) => {
