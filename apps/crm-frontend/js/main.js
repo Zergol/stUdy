@@ -34,6 +34,8 @@ import api from './lib/api.js'
     {type: 'other', value: 'Другое'}
   ];
 
+  const $searchInput = document.getElementById('searchTable');
+
   let clientList;
   let logMessages = [];
   let isLoading = false;
@@ -101,9 +103,14 @@ import api from './lib/api.js'
 
   // TODO: Doing the Searching
   //  Searching
-  function searchTable () {
+  function searchTable (input) {
 
-  } 
+    // if ($searchInput.value.trim() !== "")
+
+    // $searchInput.addEventListener('input', (e) => {
+    //   if ()
+    // })
+  };
 
   // Draw Table
   function drawTable() {
