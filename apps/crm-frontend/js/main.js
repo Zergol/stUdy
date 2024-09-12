@@ -102,15 +102,7 @@ import api from './lib/api.js'
   }
 
   // TODO: Doing the Searching
-  //  Searching
-  function searchTable (input) {
-
-    // if ($searchInput.value.trim() !== "")
-
-    // $searchInput.addEventListener('input', (e) => {
-    //   if ()
-    // })
-  };
+  
 
   // Draw Table
   function drawTable() {
@@ -122,6 +114,13 @@ import api from './lib/api.js'
 
     sortTable(sortAttribute, sortNormalOrder);
     clearTable()
+
+    
+    if ($searchInput.value.trim() !== "")
+    clientList = clientList.filter(function(oneClient) {
+      if (oneClient.surname.includes($searchInput.value.trim()) || oneClient.name.includes($searchInput.value.trim()) || oneClient.lastName.includes($searchInput.value.trim())) return true
+    })
+    
 
     for(let i=0; i < clientList.length; i++) {
       let tr = document.createElement('tr');
@@ -213,6 +212,7 @@ import api from './lib/api.js'
         td.appendChild(btnDeleteClient);
 
       clients.appendChild(tr);
+
 
       // Add margin-top to Modal-button
       if (i > 0) {
@@ -543,6 +543,15 @@ import api from './lib/api.js'
 
       });
     };
+
+
+    // Search/Фильтрация
+
+    $searchInput.addEventListener('input', function() {
+      setTimeout(() => {
+        drawTable()
+      }, 300);
+    });
 
   });
 })();
