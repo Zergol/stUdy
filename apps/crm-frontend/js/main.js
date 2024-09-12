@@ -101,21 +101,21 @@ import api from './lib/api.js'
     clientList = clientList.sort((a, b) => (normalOrder ? a[attribute] > b[attribute] : a[attribute] < b[attribute]) ? 1 : -1)
   }
 
-  // TODO: Doing the Searching
   
-
+  
   // Draw Table
   function drawTable() {
     // Add margin-top to Modal-button
     const mainBtnAdd = document.querySelector('.main__btn-container');
     let marginTop = 340;
-
+    
     let clients = document.getElementById('clientList');
-
+    
     sortTable(sortAttribute, sortNormalOrder);
     clearTable()
-
     
+    // TODO: Doing the Searching
+    // FIXME: When "NOT.includes"value
     if ($searchInput.value.trim() !== "")
     clientList = clientList.filter(function(oneClient) {
       if (oneClient.surname.includes($searchInput.value.trim()) || oneClient.name.includes($searchInput.value.trim()) || oneClient.lastName.includes($searchInput.value.trim())) return true
