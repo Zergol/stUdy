@@ -26,6 +26,8 @@ import api from './lib/api.js'
 
   const POLL_INTERVAL = 5000;
 
+  const WAIT_TIME_SEARCH = 300;
+
   const optionItems = [
     {type: 'phone', value: 'Телефон'},
     {type: 'email', value: 'Email'},
@@ -58,6 +60,7 @@ import api from './lib/api.js'
   let sortAttribute = 'surname';
   let sortNormalOrder = true;
 
+  let timeout;
   let typeSort;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -102,10 +105,11 @@ import api from './lib/api.js'
   }
 
   // TODO: Doing the Searching
-  // FIXME: When "NOT.includes"value
+  // FIXME: When "NOT.includes"value || array have only one client - marginTop = !340
   function filterTable() {
     if ($searchInput.value.trim() !== "")
     clientList = clientList.filter(function(oneClient) {
+      if (oneClient.id.includes($searchInput.value.trim())) return true
       if (oneClient.surname.includes($searchInput.value.trim()) || oneClient.name.includes($searchInput.value.trim()) || oneClient.lastName.includes($searchInput.value.trim())) return true
     })
   }
@@ -551,9 +555,10 @@ import api from './lib/api.js'
     // Search/Фильтрация
 
     $searchInput.addEventListener('input', function() {
-      setTimeout(() => {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => {
         filterTable ()
-      }, 300);
+      }, WAIT_TIME_SEARCH);
     });
 
   });
