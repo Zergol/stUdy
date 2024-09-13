@@ -101,6 +101,14 @@ import api from './lib/api.js'
     clientList = clientList.sort((a, b) => (normalOrder ? a[attribute] > b[attribute] : a[attribute] < b[attribute]) ? 1 : -1)
   }
 
+  // TODO: Doing the Searching
+  // FIXME: When "NOT.includes"value
+  function filterTable() {
+    if ($searchInput.value.trim() !== "")
+    clientList = clientList.filter(function(oneClient) {
+      if (oneClient.surname.includes($searchInput.value.trim()) || oneClient.name.includes($searchInput.value.trim()) || oneClient.lastName.includes($searchInput.value.trim())) return true
+    })
+  }
   
   
   // Draw Table
@@ -113,15 +121,9 @@ import api from './lib/api.js'
     
     sortTable(sortAttribute, sortNormalOrder);
     clearTable()
-    
-    // TODO: Doing the Searching
-    // FIXME: When "NOT.includes"value
-    if ($searchInput.value.trim() !== "")
-    clientList = clientList.filter(function(oneClient) {
-      if (oneClient.surname.includes($searchInput.value.trim()) || oneClient.name.includes($searchInput.value.trim()) || oneClient.lastName.includes($searchInput.value.trim())) return true
-    })
-    
 
+    filterTable()
+    
     for(let i=0; i < clientList.length; i++) {
       let tr = document.createElement('tr');
       let td, span, createdAt, updatedAt;
@@ -219,11 +221,12 @@ import api from './lib/api.js'
         marginTop -= 60;
         mainBtnAdd.style = `margin-top: ${marginTop}px`
       } 
-      if ( i > 5) {
+      if (i > 5) {
         marginTop += 60;
         mainBtnAdd.style = `margin-top: ${marginTop}px`
       }
     }
+
   }
 
   // Modal Form Validatoon
@@ -549,7 +552,7 @@ import api from './lib/api.js'
 
     $searchInput.addEventListener('input', function() {
       setTimeout(() => {
-        drawTable()
+        filterTable ()
       }, 300);
     });
 
