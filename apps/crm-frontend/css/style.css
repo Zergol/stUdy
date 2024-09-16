@@ -346,7 +346,9 @@ img {
   border-bottom: 0.5px solid var(--grey);
 }
 
-.main__tbody-td {
+.td__fio,
+.td__create,
+.td__actions {
   font-size: 0;
   font-weight: 400;
   font-size: 14px;

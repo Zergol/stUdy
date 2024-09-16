@@ -24,7 +24,7 @@ import api from './lib/api.js'
 
   const REGEXP_PERSON_NAME = /(^[A-Z]{1}[a-z]{1,50}$)|(^[А-Я]{1}[а-я]{1,50}$)/;
 
-  const POLL_INTERVAL = 5000;
+  const POLL_INTERVAL = 50000;
 
   const WAIT_TIME_SEARCH = 300;
 
@@ -201,8 +201,13 @@ import api from './lib/api.js'
 
         tr.appendChild(td = document.createElement('td'))
         td.classList.add('td__actions');
+        // Change client data
         const btnUpdateClient = document.createElement('button');
         btnUpdateClient.classList.add('tbody__td-btn', 'btn-change');
+        // const btnChangeLoad = document.createElement('span');
+        // btnChangeLoad.classList.add('spinner-border', 'spinner-border-sm');
+        // btnChangeLoad.setAttribute('role', 'status');
+        // btnChangeLoad.setAttribute('aria-hidden', 'true');
         btnUpdateClient.append('Изменить');
         btnUpdateClient.addEventListener('click', () => {
           showCreateUpdateModal(clientList[i])
