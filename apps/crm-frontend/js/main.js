@@ -24,7 +24,7 @@ import api from './lib/api.js'
 
   const REGEXP_PERSON_NAME = /(^[A-Z]{1}[a-z]{1,50}$)|(^[А-Я]{1}[а-я]{1,50}$)/;
 
-  const POLL_INTERVAL = 50000;
+  const POLL_INTERVAL = 3000;
 
   const WAIT_TIME_SEARCH = 300;
 
