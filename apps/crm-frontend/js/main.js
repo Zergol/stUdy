@@ -28,6 +28,8 @@ import api from './lib/api.js'
 
   const WAIT_TIME_SEARCH = 300;
 
+  const BUTTONS_LOAD_TIME = 1000;
+
   const optionItems = [
     {type: 'phone', value: 'Телефон'},
     {type: 'email', value: 'Email'},
@@ -199,26 +201,48 @@ import api from './lib/api.js'
           });
         }
 
+        // Update/Delete Buttons
         tr.appendChild(td = document.createElement('td'))
         td.classList.add('td__actions');
-        // Change client data
+        // Update client data
         const btnUpdateClient = document.createElement('button');
         btnUpdateClient.classList.add('tbody__td-btn', 'btn-change');
-        // const btnChangeLoad = document.createElement('span');
-        // btnChangeLoad.classList.add('spinner-border', 'spinner-border-sm');
-        // btnChangeLoad.setAttribute('role', 'status');
-        // btnChangeLoad.setAttribute('aria-hidden', 'true');
+        // btnUpdateClient Animation
+        const btnChangeLoad = document.createElement('span');
+        btnChangeLoad.classList.add('spinner-border', 'spinner-border-sm');
+        btnChangeLoad.setAttribute('role', 'status');
+        btnChangeLoad.setAttribute('aria-hidden', 'true');
+        btnUpdateClient.append(btnChangeLoad);
         btnUpdateClient.append('Изменить');
         btnUpdateClient.addEventListener('click', () => {
-          showCreateUpdateModal(clientList[i])
+          btnUpdateClient.classList.add('btn-load-add');
+          btnChangeLoad.style = 'display: inline-block';
+          setTimeout(() => {
+            showCreateUpdateModal(clientList[i]);
+            btnUpdateClient.classList.remove('btn-load-add');
+            btnChangeLoad.style = 'display: none';
+          }, BUTTONS_LOAD_TIME);
         });
         td.appendChild(btnUpdateClient);
 
+        // Delete client data
         const btnDeleteClient = document.createElement('button');
         btnDeleteClient.classList.add('tbody__td-btn', 'btn-delete');
+        // btnDeleteClient Animation
+        const btnDeleteLoad = document.createElement('span');
+        btnDeleteLoad.classList.add('spinner-border', 'spinner-border-sm', 'red');
+        btnDeleteLoad.setAttribute('role', 'status');
+        btnDeleteLoad.setAttribute('aria-hidden', 'true');
+        btnDeleteClient.append(btnDeleteLoad);
         btnDeleteClient.append('Удалить');
         btnDeleteClient.addEventListener('click', () => {
-          showDeleteModal(clientList[i])
+          btnDeleteClient.classList.add('btn-load-add');
+          btnDeleteLoad.style = 'display: inline-block';
+          setTimeout(() => {
+            showDeleteModal(clientList[i]);
+            btnDeleteClient.classList.remove('btn-load-add');
+            btnDeleteLoad.style = 'display: none';
+          }, BUTTONS_LOAD_TIME);
         });
         td.appendChild(btnDeleteClient);
 
