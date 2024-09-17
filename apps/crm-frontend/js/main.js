@@ -440,9 +440,11 @@ import api from './lib/api.js'
     clientName = document.getElementById('clientName');
     clientLastname = document.getElementById('clientLastname');
     clientContacts = document.getElementById('clientContacts');
-
+    
     modalBtnAddContact = document.getElementById('modalBtnAddContact');
     modalBtnSubmit = document.getElementById('modalBtnSubmit');
+
+    // if (clientContacts.length === 10) modalBtnAddContact.setAttribute('disabled', '');
 
     console.log(modalCreateUpdateClient);
 
@@ -513,6 +515,8 @@ import api from './lib/api.js'
       })
     });
 
+    
+
     modalBtnAddContact.addEventListener('click', (e) => {
       addContactToModal({
         "type": "Телефон",
@@ -582,7 +586,6 @@ import api from './lib/api.js'
 
 
     // Search/Фильтрация
-
     $searchInput.addEventListener('input', function() {
       clearTimeout(timeout);
       timeout = setTimeout(() => {
