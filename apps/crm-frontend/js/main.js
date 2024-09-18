@@ -30,6 +30,8 @@ import api from './lib/api.js'
 
   const BUTTONS_LOAD_TIME = 1000;
 
+  const CONTACTS_MAX = 10;
+
   const optionItems = [
     {type: 'phone', value: 'Телефон'},
     {type: 'email', value: 'Email'},
@@ -384,7 +386,6 @@ import api from './lib/api.js'
 
     clientContacts.appendChild(contactContainer)
 
-    $('.add__form-input select').selectpicker();
     tippy(btnDeleteContact, {
       theme: 'tooltipTheme',
       delay: 90,
@@ -397,11 +398,11 @@ import api from './lib/api.js'
   function getContactsFromModal() {
     let contacts = [];
     clientContacts.querySelectorAll('div').forEach((item) => {
-        console.log('TYPE:',  item.querySelector('option[selected="true"]').textContent, 'VALUE:' , item.querySelector('input').value)
-        contacts.push({
-          "type": item.querySelector('option:checked').textContent,
-          "value": item.querySelector('input').value
-        })
+      console.log('TYPE:',  item.querySelector('option[selected="true"]').textContent, 'VALUE:' , item.querySelector('input').value);
+      contacts.push({
+        "type": item.querySelector('option:checked').textContent,
+        "value": item.querySelector('input').value
+      })
     });
     return contacts;
   }
@@ -461,7 +462,7 @@ import api from './lib/api.js'
     modalBtnSubmit = document.getElementById('modalBtnSubmit');
 
     // FIXME: clientContacts.length - max 10!
-    // if (clientContacts.length === 10) modalBtnAddContact.setAttribute('disabled', '');
+    // if (clientContacts.length >= CONTACTS_MAX) modalBtnAddContact.setAttribute('disabled', '');
 
     console.log(modalCreateUpdateClient);
 
