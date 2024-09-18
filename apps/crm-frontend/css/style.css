@@ -294,6 +294,7 @@ img {
 
 /* active arrows */
 .thead-id,
+.thead-fio,
 .thead-create,
 .thead-change {
   padding-right: 13px;
@@ -301,14 +302,6 @@ img {
   background-repeat: no-repeat;
   background-size: 12px;
   background-position: right 2.6px;
-}
-
-.thead-fio {
-  padding-right: 32px;
-  background-image: url('../img/arrow-fio-down.svg');
-  background-repeat: no-repeat;
-  background-size: 29px 14px;
-  background-position: right center;
 }
 
 .active-up {
@@ -319,16 +312,6 @@ img {
 .active-down {
   color: var(--firm);
   background-image: url('../img/arrow-down.svg');
-}
-
-.active-up-fio {
-  color: var(--firm);
-  background-image: url('../img/arrow-fio-up.svg');
-}
-
-.active-down-fio {
-  color: var(--firm);
-  background-image: url('../img/arrow-fio-down.svg');
 }
 
 .active-up:hover,
@@ -546,7 +529,7 @@ img {
   font-size: 14px;
   color: var(--txt-grey);
   border: none !important;
-  top: 18px !important;
+  top: 18px;
 }
 
 .input:focus + label,

@@ -59,11 +59,10 @@ import api from './lib/api.js'
   let modalBtnAddContact;
   let modalBtnSubmit;
 
-  let sortAttribute = 'surname';
+  let sortAttribute = 'id';
   let sortNormalOrder = true;
 
   let timeout;
-  let typeSort;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // Functions
@@ -363,12 +362,35 @@ import api from './lib/api.js'
     const btnDeleteContact = document.createElement('button');
     btnDeleteContact.classList.add('select__input-btn');
     btnDeleteContact.setAttribute('type', 'button');
+
+    const btnDeleteContactSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    btnDeleteContactSvg.classList.add('select__input-btn-arrow');
+    btnDeleteContactSvg.setAttribute("viewBox", "0 0 12 12");
+    btnDeleteContactSvg.setAttribute("width", 12);
+    btnDeleteContactSvg.setAttribute("height", 12);
+    btnDeleteContactSvg.setAttribute("fill", "none");
+
+    const btnDeleteContactSvgPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    btnDeleteContactSvgPath.setAttribute("d", "M6 0C2.682 0 0 2.682 0 6C0 9.318 2.682 12 6 12C9.318 12 12 9.318 12 6C12 2.682 9.318 0 6 0ZM6 10.8C3.354 10.8 1.2 8.646 1.2 6C1.2 3.354 3.354 1.2 6 1.2C8.646 1.2 10.8 3.354 10.8 6C10.8 8.646 8.646 10.8 6 10.8ZM8.154 3L6 5.154L3.846 3L3 3.846L5.154 6L3 8.154L3.846 9L6 6.846L8.154 9L9 8.154L6.846 6L9 3.846L8.154 3Z");
+    btnDeleteContactSvgPath.setAttribute("fill", "#B0B0B0");
+
+    btnDeleteContactSvg.append(btnDeleteContactSvgPath);
+    btnDeleteContact.append(btnDeleteContactSvg);
+
     btnDeleteContact.addEventListener('click', () => {
       contactContainer.remove();
     });
     contactContainer.appendChild(btnDeleteContact);
 
     clientContacts.appendChild(contactContainer)
+
+    $('.add__form-input select').selectpicker();
+    tippy(btnDeleteContact, {
+      theme: 'tooltipTheme',
+      delay: 90,
+      content: "<strong>Удалить контакт</strong>",
+      allowHTML: true,
+    });
 
   }
 
@@ -402,12 +424,6 @@ import api from './lib/api.js'
     //   p.appendChild(document.createTextNode(`Error: ${logMessages[i].message}`));
     // }
 
-  //TODO: global tippy call in init
-  //         tippy('#select__input-delete', {
-  //           theme: 'tooltipTheme',
-  //           content: "<strong>Удалить контакт</strong>",
-  //           allowHTML: true,
-  //         });
 
 
   // Initialisation
@@ -444,6 +460,7 @@ import api from './lib/api.js'
     modalBtnAddContact = document.getElementById('modalBtnAddContact');
     modalBtnSubmit = document.getElementById('modalBtnSubmit');
 
+    // FIXME: clientContacts.length - max 10!
     // if (clientContacts.length === 10) modalBtnAddContact.setAttribute('disabled', '');
 
     console.log(modalCreateUpdateClient);
@@ -503,7 +520,6 @@ import api from './lib/api.js'
           })
         }
       }
-
     });
 
     modalDeleteClientBtnSubmit.addEventListener("click", (e) => {
@@ -534,56 +550,11 @@ import api from './lib/api.js'
           sortNormalOrder ^= true;
         }
         sortAttribute = newAttribute;
-        // e.target.classList.toggle('active-up', sortNormalOrder);
-        // e.target.classList.toggle('active-down', !sortNormalOrder);
+        e.target.classList.toggle('active-up', sortNormalOrder);
+        e.target.classList.toggle('active-down', !sortNormalOrder);
         drawTable();
       });
     });
-
-    const theadTd = document.querySelectorAll('.table__thead-td span');
-    let typeSort = [true, false, false, false];
-    for (let i = 0; i < 4; ++i) {
-      theadTd[i].addEventListener('click', () => {
-        const classNames = [{first: 'active-up', second: 'active-up-fio'},
-                            {first: 'active-down', second: 'active-down-fio'}];
-        for (let j = 0; j < 4; ++j) {
-          if (j === 1) {
-            if (theadTd[j].classList.contains(classNames[0].second)) {
-              theadTd[j].classList.remove(classNames[0].second);
-            }
-            if (theadTd[j].classList.contains(classNames[1].second)) {
-              theadTd[j].classList.remove(classNames[1].second);
-            }
-          } else {
-            if (theadTd[j].classList.contains(classNames[0].first)) {
-              theadTd[j].classList.remove(classNames[0].first);
-            }
-            if (theadTd[j].classList.contains(classNames[1].first)) {
-              theadTd[j].classList.remove(classNames[1].first);
-            }
-          }
-        }
-        if (i === 1) {
-          if (typeSort[i]) {
-            theadTd[i].classList.add(classNames[1].second);
-            typeSort[i] = false;
-          } else {
-            theadTd[i].classList.add(classNames[0].second);
-            typeSort[i] = true;
-          }
-        } else {
-          if (typeSort[i]) {
-            theadTd[i].classList.add(classNames[1].first);
-            typeSort[i] = false;
-          } else {
-            theadTd[i].classList.add(classNames[0].first);
-            typeSort[i] = true;
-          }
-        }
-
-      });
-    };
-
 
     // Search/Фильтрация
     $searchInput.addEventListener('input', function() {
