@@ -385,17 +385,16 @@ import api from './lib/api.js'
     contactContainer.appendChild(btnDeleteContact);
 
     clientContacts.appendChild(contactContainer)
-
+    
     tippy(btnDeleteContact, {
       theme: 'tooltipTheme',
       delay: 90,
       content: "<strong>Удалить контакт</strong>",
       allowHTML: true,
     });
-
-    // if (clientContacts.length >= CONTACTS_MAX) modalBtnAddContact.setAttribute('disabled', '');
   }
-
+  
+  // if (clientContacts.length >= CONTACTS_MAX) modalBtnAddContact.setAttribute('disabled', '');
 
   function getContactsFromModal() {
     let contacts = [];
@@ -408,8 +407,7 @@ import api from './lib/api.js'
     });
     return contacts;
   }
-
-
+  
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // Main
 //
@@ -464,7 +462,9 @@ import api from './lib/api.js'
     modalBtnSubmit = document.getElementById('modalBtnSubmit');
 
     // FIXME: clientContacts.length - max 10!
-    // if (clientContacts.length >= CONTACTS_MAX) modalBtnAddContact.setAttribute('disabled', '');
+    if (clientContacts.length >= CONTACTS_MAX) {
+      modalBtnAddContact.setAttribute('disabled');
+    }
 
     console.log(modalCreateUpdateClient);
 
@@ -533,7 +533,7 @@ import api from './lib/api.js'
 //        $('#modalDeleteClient').modal('hide');
       })
     });
-
+    
     modalBtnAddContact.addEventListener('click', (e) => {
       addContactToModal({
         "type": "Телефон",
