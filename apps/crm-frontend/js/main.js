@@ -393,7 +393,9 @@ import api from './lib/api.js'
       allowHTML: true,
     });
 
+    // if (clientContacts.length >= CONTACTS_MAX) modalBtnAddContact.setAttribute('disabled', '');
   }
+
 
   function getContactsFromModal() {
     let contacts = [];
@@ -531,8 +533,6 @@ import api from './lib/api.js'
 //        $('#modalDeleteClient').modal('hide');
       })
     });
-
-    
 
     modalBtnAddContact.addEventListener('click', (e) => {
       addContactToModal({

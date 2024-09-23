@@ -782,10 +782,19 @@ img {
   height: 37px;
   border: 1px solid var(--grey);
   background: #E7E5EB;
+  transition: border 0.15s ease-in-out;
+}
+
+.select__input-btn-arrow {
+  transition: fill 0.15s ease-in-out;
 }
 
 .select__input-btn:hover {
   border: 1px solid #F4F3F6;
+}
+
+.select__input-btn-arrow:hover path {
+  fill: var(--firm);
 }
 
 .select__input-btn:hover .select__input-btn-arrow path {
