@@ -462,9 +462,13 @@ import api from './lib/api.js'
     modalBtnSubmit = document.getElementById('modalBtnSubmit');
 
     // FIXME: clientContacts.length - max 10!
-    if (clientContacts.length >= CONTACTS_MAX) {
-      modalBtnAddContact.setAttribute('disabled');
-    }
+    // if (clientContacts.length >= CONTACTS_MAX) {
+    //   modalBtnAddContact.setAttribute('disabled');
+    // }
+
+    // if (clientContacts.length >= CONTACTS_MAX) {
+    //   modalBtnAddContact.disabled = true;
+    // }
 
     console.log(modalCreateUpdateClient);
 
