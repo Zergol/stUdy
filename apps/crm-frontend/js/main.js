@@ -385,6 +385,9 @@ import api from './lib/api.js'
     contactContainer.appendChild(btnDeleteContact);
 
     clientContacts.appendChild(contactContainer)
+
+    // TODO: make "max contacts - 10"
+    // if (contactContainer.length >= CONTACTS_MAX) modalBtnAddContact.disabled = true;
     
     tippy(btnDeleteContact, {
       theme: 'tooltipTheme',
@@ -394,8 +397,6 @@ import api from './lib/api.js'
     });
   }
   
-  // if (clientContacts.length >= CONTACTS_MAX) modalBtnAddContact.setAttribute('disabled', '');
-
   function getContactsFromModal() {
     let contacts = [];
     clientContacts.querySelectorAll('div').forEach((item) => {
@@ -462,6 +463,8 @@ import api from './lib/api.js'
     modalBtnSubmit = document.getElementById('modalBtnSubmit');
 
     // FIXME: clientContacts.length - max 10!
+    // if (clientContacts.length >= CONTACTS_MAX) modalBtnAddContact.setAttribute('disabled', '');
+
     // if (clientContacts.length >= CONTACTS_MAX) {
     //   modalBtnAddContact.setAttribute('disabled');
     // }
@@ -487,9 +490,14 @@ import api from './lib/api.js'
         clientName.value = modalCreateUpdateClient.client.name;
         clientLastname.value = modalCreateUpdateClient.client.lastName;
 
+        if (modalCreateUpdateClient.client.contacts.length < CONTACTS_MAX) modalBtnAddContact.disabled = false;
+        
         modalCreateUpdateClient.client.contacts.forEach((contact) => {
           addContactToModal(contact)
         })
+
+        if (modalCreateUpdateClient.client.contacts.length >= CONTACTS_MAX) modalBtnAddContact.disabled = true;
+          
         modalBtnSubmit.textContent='Сохранить'
       } else {
         modalLabel.textContent = 'Новый клиент'
