@@ -58,6 +58,9 @@ import api from './lib/api.js'
   let clientLastname;
   let clientContacts;
 
+  // let counterOfAddContacts;
+  let counterOfAddContacts = 0;
+
   let modalBtnAddContact;
   let modalBtnSubmit;
 
@@ -337,6 +340,16 @@ import api from './lib/api.js'
 
     console.log(contact);
 
+    // TODO: counterOfAddContacts must to WORK!
+    // counterOfAddContacts = 0;
+
+    // if (modalCreateUpdateClient.client.contacts.length === 0) {
+    //   let counterOfAddContacts = 0;
+    // }
+    // if (modalCreateUpdateClient.client.contacts.length !== 0) {
+    //   let counterOfAddContacts = modalCreateUpdateClient.client.contacts.length;
+    // }
+
     const contactContainer = document.createElement('div');
     contactContainer.classList.add('add__form-input');
 
@@ -380,15 +393,17 @@ import api from './lib/api.js'
     btnDeleteContact.append(btnDeleteContactSvg);
 
     btnDeleteContact.addEventListener('click', () => {
+      counterOfAddContacts--;
       contactContainer.remove();
     });
     contactContainer.appendChild(btnDeleteContact);
 
     clientContacts.appendChild(contactContainer)
+    counterOfAddContacts++;
 
-    // TODO: make "max contacts - 10"
-    // if (contactContainer.length >= CONTACTS_MAX) modalBtnAddContact.disabled = true;
-    
+    if (counterOfAddContacts >= CONTACTS_MAX) modalBtnAddContact.disabled = true;
+    console.log(counterOfAddContacts);
+
     tippy(btnDeleteContact, {
       theme: 'tooltipTheme',
       delay: 90,
@@ -405,6 +420,7 @@ import api from './lib/api.js'
         "type": item.querySelector('option:checked').textContent,
         "value": item.querySelector('input').value
       })
+      counterOfAddContacts++;
     });
     return contacts;
   }
@@ -425,8 +441,6 @@ import api from './lib/api.js'
     // for(let i=0; i < logMessages.length; i++) {
     //   p.appendChild(document.createTextNode(`Error: ${logMessages[i].message}`));
     // }
-
-
 
   // Initialisation
   //    console.log('SERVER_URL: ', SERVER_URL);
@@ -462,17 +476,6 @@ import api from './lib/api.js'
     modalBtnAddContact = document.getElementById('modalBtnAddContact');
     modalBtnSubmit = document.getElementById('modalBtnSubmit');
 
-    // FIXME: clientContacts.length - max 10!
-    // if (clientContacts.length >= CONTACTS_MAX) modalBtnAddContact.setAttribute('disabled', '');
-
-    // if (clientContacts.length >= CONTACTS_MAX) {
-    //   modalBtnAddContact.setAttribute('disabled');
-    // }
-
-    // if (clientContacts.length >= CONTACTS_MAX) {
-    //   modalBtnAddContact.disabled = true;
-    // }
-
     console.log(modalCreateUpdateClient);
 
 //TODO: figure out hot to use Vanilaa JS to addEventListener
@@ -490,14 +493,10 @@ import api from './lib/api.js'
         clientName.value = modalCreateUpdateClient.client.name;
         clientLastname.value = modalCreateUpdateClient.client.lastName;
 
-        if (modalCreateUpdateClient.client.contacts.length < CONTACTS_MAX) modalBtnAddContact.disabled = false;
-        
         modalCreateUpdateClient.client.contacts.forEach((contact) => {
           addContactToModal(contact)
         })
 
-        if (modalCreateUpdateClient.client.contacts.length >= CONTACTS_MAX) modalBtnAddContact.disabled = true;
-          
         modalBtnSubmit.textContent='Сохранить'
       } else {
         modalLabel.textContent = 'Новый клиент'
@@ -541,8 +540,6 @@ import api from './lib/api.js'
       api.deleteClient(modalDeleteClient.client, (data) => {
         console.log("Client was succesfully deleted", data);
         modalDeleteClient.hide();
-//TODO: figure out why jQuery access to modal is not working
-//        $('#modalDeleteClient').modal('hide');
       })
     });
     
