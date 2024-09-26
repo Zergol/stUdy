@@ -58,8 +58,8 @@ import api from './lib/api.js'
   let clientLastname;
   let clientContacts;
 
-  // let counterOfAddContacts;
-  let counterOfAddContacts = 0;
+  let counterOfAddContacts;
+  // let counterOfAddContacts = 0;
 
   let modalBtnAddContact;
   let modalBtnSubmit;
@@ -110,7 +110,7 @@ import api from './lib/api.js'
     clientList = clientList.sort((a, b) => (normalOrder ? a[attribute] > b[attribute] : a[attribute] < b[attribute]) ? 1 : -1)
   }
 
-  // TODO: Doing the Searching
+  // filterTable - Searching
   // FIXME: When "NOT.includes"value || array have only one client - marginTop = !340
   function filterTable() {
     if ($searchInput.value.trim() !== "")
@@ -119,7 +119,6 @@ import api from './lib/api.js'
       if (oneClient.surname.includes($searchInput.value.trim()) || oneClient.name.includes($searchInput.value.trim()) || oneClient.lastName.includes($searchInput.value.trim())) return true
     })
   }
-  
   
   // Draw Table
   function drawTable() {
@@ -266,6 +265,7 @@ import api from './lib/api.js'
 
   }
 
+
   // Modal Form Validatoon
 
   function formValidation () {
@@ -340,16 +340,6 @@ import api from './lib/api.js'
 
     console.log(contact);
 
-    // TODO: counterOfAddContacts must to WORK!
-    // counterOfAddContacts = 0;
-
-    // if (modalCreateUpdateClient.client.contacts.length === 0) {
-    //   let counterOfAddContacts = 0;
-    // }
-    // if (modalCreateUpdateClient.client.contacts.length !== 0) {
-    //   let counterOfAddContacts = modalCreateUpdateClient.client.contacts.length;
-    // }
-
     const contactContainer = document.createElement('div');
     contactContainer.classList.add('add__form-input');
 
@@ -395,6 +385,7 @@ import api from './lib/api.js'
     btnDeleteContact.addEventListener('click', () => {
       counterOfAddContacts--;
       contactContainer.remove();
+      console.log(counterOfAddContacts);
     });
     contactContainer.appendChild(btnDeleteContact);
 
@@ -424,7 +415,7 @@ import api from './lib/api.js'
     });
     return contacts;
   }
-  
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // Main
 //
@@ -472,7 +463,7 @@ import api from './lib/api.js'
     clientName = document.getElementById('clientName');
     clientLastname = document.getElementById('clientLastname');
     clientContacts = document.getElementById('clientContacts');
-    
+
     modalBtnAddContact = document.getElementById('modalBtnAddContact');
     modalBtnSubmit = document.getElementById('modalBtnSubmit');
 
@@ -482,6 +473,7 @@ import api from './lib/api.js'
 //    modalCreateUpdateClient._element.addEventListener('show.bs.modal', (e) => {
     $('#modalCreateUpdateClient').on('show.bs.modal', (e) => {
 
+      counterOfAddContacts = 0;
       clientContacts.replaceChildren();
 
       if (modalCreateUpdateClient.client) {
