@@ -58,9 +58,6 @@ import api from './lib/api.js'
   let clientLastname;
   let clientContacts;
 
-  let counterOfAddContacts;
-  // let counterOfAddContacts = 0;
-
   let modalBtnAddContact;
   let modalBtnSubmit;
 
@@ -383,17 +380,19 @@ import api from './lib/api.js'
     btnDeleteContact.append(btnDeleteContactSvg);
 
     btnDeleteContact.addEventListener('click', () => {
-      counterOfAddContacts--;
       contactContainer.remove();
-      console.log(counterOfAddContacts);
     });
     contactContainer.appendChild(btnDeleteContact);
 
     clientContacts.appendChild(contactContainer)
-    counterOfAddContacts++;
 
-    if (counterOfAddContacts >= CONTACTS_MAX) modalBtnAddContact.disabled = true;
-    console.log(counterOfAddContacts);
+    const contactsItem = document.getElementsByClassName('add__form-input');
+
+    if (contactsItem.length <= CONTACTS_MAX) {
+      modalBtnAddContact.disabled = false;
+    } else {
+      modalBtnAddContact.disabled = true;
+    }
 
     tippy(btnDeleteContact, {
       theme: 'tooltipTheme',
@@ -411,7 +410,6 @@ import api from './lib/api.js'
         "type": item.querySelector('option:checked').textContent,
         "value": item.querySelector('input').value
       })
-      counterOfAddContacts++;
     });
     return contacts;
   }
@@ -473,7 +471,6 @@ import api from './lib/api.js'
 //    modalCreateUpdateClient._element.addEventListener('show.bs.modal', (e) => {
     $('#modalCreateUpdateClient').on('show.bs.modal', (e) => {
 
-      counterOfAddContacts = 0;
       clientContacts.replaceChildren();
 
       if (modalCreateUpdateClient.client) {
