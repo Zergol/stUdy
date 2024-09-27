@@ -381,6 +381,7 @@ import api from './lib/api.js'
 
     btnDeleteContact.addEventListener('click', () => {
       contactContainer.remove();
+      modalBtnAddContact.style = 'display: block';
     });
     contactContainer.appendChild(btnDeleteContact);
 
@@ -389,9 +390,9 @@ import api from './lib/api.js'
     const contactsItem = document.getElementsByClassName('add__form-input');
 
     if (contactsItem.length <= CONTACTS_MAX) {
-      modalBtnAddContact.disabled = false;
+      modalBtnAddContact.style = 'display: block';
     } else {
-      modalBtnAddContact.disabled = true;
+      modalBtnAddContact.style = 'display: none';
     }
 
     tippy(btnDeleteContact, {
