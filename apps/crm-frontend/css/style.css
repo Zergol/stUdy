@@ -257,6 +257,50 @@ img {
 
 .thead-id {
   padding-left: 15px;
+  transition: color 0.1s ease;
+}
+
+.thead-id:focus-visible {
+  color: var(--firm);
+}
+
+.thead-id:active {
+  color: var(--firm);
+}
+
+.thead-fio {
+  transition: color 0.1s ease;
+}
+
+.thead-fio:focus-visible {
+  color: var(--firm);
+}
+
+.thead-fio:active {
+  color: var(--firm);
+}
+
+.thead-create {
+  transition: color 0.1s ease;
+}
+
+.thead-create:focus-visible {
+  color: var(--firm);
+}
+
+.thead-create:active {
+  color: var(--firm);
+}
+
+.thead-change {
+  transition: color 0.1s ease;
+}
+
+.thead-change:focus-visible {
+  color: var(--firm);
+}
+
+.thead-change:active {
   color: var(--firm);
 }
 
