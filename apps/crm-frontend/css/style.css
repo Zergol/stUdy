@@ -238,6 +238,7 @@ img {
 }
 
 .thead-fio__abc {
+  display: inline-block;
   width: 17px;
   font-family: var(--font-family);
   font-weight: 400;
@@ -256,6 +257,7 @@ img {
 
 .thead-id {
   padding-left: 15px;
+  color: var(--firm);
 }
 
 /* table background */
@@ -313,21 +315,19 @@ img {
 }
 
 .active-up {
-  color: var(--firm);
+  /* color: var(--firm); */
   background-image: url('../img/arrow-up.svg');
 }
 
 .active-down {
-  color: var(--firm);
+  /* color: var(--firm); */
   background-image: url('../img/arrow-down.svg');
 }
 
-.active-up:hover,
-.active-down:hover,
-.active-up-fio:hover,
-.active-down-fio:hover {
+/* .active-up:hover,
+.active-down:hover {
   color: var(--firm);
-}
+} */
 
 /* table tbody tr td */
 .main__tbody-tr {
