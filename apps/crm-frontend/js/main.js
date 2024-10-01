@@ -108,7 +108,6 @@ import api from './lib/api.js'
   }
 
   // filterTable - Searching
-  // FIXME: When "NOT.includes"value || array have only one client - marginTop = !340
   function filterTable() {
     if ($searchInput.value.trim() !== "")
     clientList = clientList.filter(function(oneClient) {
@@ -425,13 +424,6 @@ import api from './lib/api.js'
 
   window.addEventListener('DOMContentLoaded', async () => {
 
-  //TODO: figure out proper error message rendering
-    // const p = document.getElementById("logMessages");
-    // p.replaceChildren();
-    // for(let i=0; i < logMessages.length; i++) {
-    //   p.appendChild(document.createTextNode(`Error: ${logMessages[i].message}`));
-    // }
-
   // Initialisation
   //    console.log('SERVER_URL: ', SERVER_URL);
 
@@ -468,8 +460,6 @@ import api from './lib/api.js'
 
     console.log(modalCreateUpdateClient);
 
-//TODO: figure out hot to use Vanilaa JS to addEventListener
-//    modalCreateUpdateClient._element.addEventListener('show.bs.modal', (e) => {
     $('#modalCreateUpdateClient').on('show.bs.modal', (e) => {
 
       clientContacts.replaceChildren();
